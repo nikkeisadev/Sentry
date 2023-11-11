@@ -1,21 +1,26 @@
 import ctypes
-import os,time,psutil,winapps,hashlib,os.path,datetime,platform,subprocess,customtkinter,mysql.connector
+import os,time,psutil,winapps,hashlib,os.path,datetime,platform,subprocess,customtkinter,mysql.connector,sys
 from pathlib import Path
 from PIL import Image, ImageTk
 from winotify import Notification, audio
+from colorama import init
+init(strip=not sys.stdout.isatty())
+from termcolor import cprint 
+from pyfiglet import figlet_format
+
 
 subprefix = """
-
-███████ ███████ ███    ██ ████████ ██████  ██    ██ 
-██      ██      ████   ██    ██    ██   ██  ██  ██  
-███████ █████   ██ ██  ██    ██    ██████    ████   
-     ██ ██      ██  ██ ██    ██    ██   ██    ██    
-███████ ███████ ██   ████    ██    ██   ██    ██                                                  
-   <A way for a Better School Cyber Security!>
-
-[] Cyber Security software designed for school computers.
-[] Made with love, by: Nikke.
-[] Working with customtkinter UI. Alpha version, not build ready.
+                 ____  _____ _   _ _____ ______   __
+                / ___|| ____| \ | |_   _|  _ \ \ / /
+                \___ \|  _| |  \| | | | | |_) \ V /
+                 __)  | |___| |\  | | | |  _ < | |
+                |____/|_____|_| \_| |_| |_| \_\|_|
+╭――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――╮
+│             A way for a Better School Cyber Security!            │
+│[] Cyber Security software designed for school computers.         │
+│[] Made with love, by: Nikke.                                     │
+│[] Working with customtkinter UI. Alpha version, unredy for build.│
+╰――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――╯              
 ---------------------------SENTRY---------------------------
 """
 
@@ -49,7 +54,6 @@ MACHINE_ID = None
 #You should leave this boolean off, enable only when smth is not okay...
 #A Great option when the SQL server is down!
 developer_mode = True
-
 
 print(subprefix)
 print(EMPTUM_CONSOLE_PREFIX + f"Logged in Runtime as: {USER_NAME}" + " at " + current_time + "!")  
@@ -98,7 +102,7 @@ def completeCorruptionScan():
 def connectingDatabase():
     mydb = mysql.connector.connect(
     host = "127.0.0.1",
-    port = 8008,
+    port = 1111,
     user = "root",
     password = "emptum-chan",
     database = "token_storage"
@@ -150,7 +154,7 @@ def defineApplicationKeysLoaded():
 def defineID():
     mydb = mysql.connector.connect(
             host = "127.0.0.1",
-            port = 8008,
+            port = 1111,
             user = "root",
             password = "emptum-chan",
             database = "token_storage"
@@ -577,7 +581,7 @@ class App(customtkinter.CTk):
         
         mydb = mysql.connector.connect(
             host = "127.0.0.1",
-            port = 8008,
+            port = 1111,
             user = "root",
             password = "emptum-chan",
             database = "token_storage"
@@ -681,7 +685,7 @@ class App(customtkinter.CTk):
     def sendTokenRequest(self):
         mydb = mysql.connector.connect(
             host = "127.0.0.1",
-            port = 8008,
+            port = 1111,
             user = "root",
             password = "emptum-chan",
             database = "token_storage"
