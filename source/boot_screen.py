@@ -1,11 +1,19 @@
 import os
 import sys
+import threading
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QMovie
 from PyQt5.QtCore import Qt, QTimer
+from playsound import playsound
 
 scriptDir = os.path.dirname(os.path.realpath(__file__))
 gifFile = (scriptDir + os.path.sep + 'images/startup_logo.gif')
+soundFile = (scriptDir + os.path.sep + '/sounds/startup.mp3')
+
+class SoundThread(threading.Thread):
+    def run(self):
+        # Play the sound effect
+        playsound(soundFile)
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
@@ -22,7 +30,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer = QTimer()
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.closeApplication)
-        self.timer.start(4000)  # Delay of 3 seconds
+        self.timer.start(3000)  # Delay of 3 seconds
+
+        # Start the sound thread
+        sound_thread = SoundThread()
+        sound_thread.start()
 
     def closeApplication(self):
         # Perform any cleanup or additional actions before closing the application
