@@ -30,7 +30,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer = QTimer()
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.closeApplication)
-        self.timer.start(3000)  # Delay of 3 seconds
+        self.timer.start(5000)  # Delay of 3 seconds
 
         # Start the sound thread
         sound_thread = SoundThread()
