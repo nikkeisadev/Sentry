@@ -6,7 +6,7 @@ from winotify import Notification, audio
 from colorama import init
 init(strip=not sys.stdout.isatty())
 from termcolor import cprint 
-from pyfiglet import figlet_format
+import threading
 
 
 subprefix = """
@@ -102,7 +102,7 @@ def completeCorruptionScan():
 def connectingDatabase():
     mydb = mysql.connector.connect(
     host = "127.0.0.1",
-    port = 1111,
+    port = 8080,
     user = "root",
     password = "emptum-chan",
     database = "token_storage"
@@ -120,7 +120,7 @@ def connectingDatabase():
 def reportToSQLDatabase(aboutReport, aboutDatetime, aboutID, aboutInforamtion):
     mydb = mysql.connector.connect(
         host = "127.0.0.1",
-        port = 8008,
+        port = 8080,
         user = "root",
         password = "emptum-chan",
         database = "token_storage"
@@ -154,7 +154,7 @@ def defineApplicationKeysLoaded():
 def defineID():
     mydb = mysql.connector.connect(
             host = "127.0.0.1",
-            port = 1111,
+            port = 8080,
             user = "root",
             password = "emptum-chan",
             database = "token_storage"
@@ -195,13 +195,21 @@ def readID():
 def autoscan_boot():
     os.system('cmd /k python autoscan_task.py')
 
+class CodeThread(threading.Thread):
+    def run(self):
+        # Run the other Python code
+        subprocess.call(['python', 'boot_screen.py'])
+
+code_thread = CodeThread()
+code_thread.start()
+
 #autoscan_boot()
 connectingDatabase()
 completeCorruptionScan()
 readID()
 defineID()
 toastNotification('SENTRY - Better School Cyber Security', 'Welcome back!', 'SENTRY is ready to go!', r"\images\system_default_notification.ico", 'False', '', '')
-    
+
 class App(customtkinter.CTk):
     width = 500
     height = 486
@@ -243,10 +251,10 @@ class App(customtkinter.CTk):
 
         #LOGIN UI FRAME
         #The given data from the input fields are processed safely.
-        self.login_frame = customtkinter.CTkFrame(self, bg_color= "black")
+        self.login_frame = customtkinter.CTkFrame(self, bg_color= "#202020", corner_radius=(30))
         self.login_frame.grid(row=0)
         login_image = ImageTk.PhotoImage(Image.open(current_path + r"/images/sentry_logo.png"))
-        self.fake_button_image = customtkinter.CTkButton(self.login_frame, text="", image = login_image, width=20, height=20, fg_color="#000000", hover_color="#000000")
+        self.fake_button_image = customtkinter.CTkButton(self.login_frame, text="", image = login_image, width=20, height=20, fg_color="#000000", hover_color="#000000", corner_radius=(30))
         self.fake_button_image .grid(row=1, column=0, padx=15, pady=(30, 10))
         self.banner = customtkinter.CTkLabel(self.login_frame, text='Welcome to SENTRY!\nA way for a Better School Cyber Security!',
                                                 font=customtkinter.CTkFont(size=13))
@@ -267,7 +275,7 @@ class App(customtkinter.CTk):
                                                  font=customtkinter.CTkFont(size=10))
         self.banner.grid(row=8, column=0, padx=15, pady=(0, 5))
         nikkeisadev_banner = ImageTk.PhotoImage(Image.open(current_path + r"/images/nikkeisadev_logo.png"))
-        self.fake_button_image = customtkinter.CTkButton(self.login_frame, text="", image = nikkeisadev_banner, width=10, height=10, fg_color="#803fdf", hover_color="#803fdf")
+        self.fake_button_image = customtkinter.CTkButton(self.login_frame, text="", image = nikkeisadev_banner, width=10, height=10, fg_color="#803fdf", hover_color="#803fdf", corner_radius=(30))
         self.fake_button_image .grid(row=9, column=0, padx=15, pady=(0, 20))
         
 
@@ -581,7 +589,7 @@ class App(customtkinter.CTk):
         
         mydb = mysql.connector.connect(
             host = "127.0.0.1",
-            port = 1111,
+            port = 8080,
             user = "root",
             password = "emptum-chan",
             database = "token_storage"
@@ -685,7 +693,7 @@ class App(customtkinter.CTk):
     def sendTokenRequest(self):
         mydb = mysql.connector.connect(
             host = "127.0.0.1",
-            port = 1111,
+            port = 8080,
             user = "root",
             password = "emptum-chan",
             database = "token_storage"
@@ -706,7 +714,7 @@ class App(customtkinter.CTk):
     def next_event(self):
         self.isTokenLatest()
         self.loggedin_frame.grid_forget()  # remove login frame
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)  # show main frame
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)  # show main frame
     
     def startscanonce(self):
         self.isTokenLatest()
@@ -735,32 +743,32 @@ class App(customtkinter.CTk):
     def back_mainframe_from_installations(self):
         self.isTokenLatest()
         self.installations_frame.grid_forget()  # remove login frame
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100) 
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90) 
     
     def back_mainframe_from_apps(self):
         self.isTokenLatest()
         self.add_app_frame.grid_forget()  # remove login frame
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_expertscan(self):
         self.isTokenLatest()
         self.expertscan_frame.grid_forget()  # remove login frame
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_win_settings(self):
         self.isTokenLatest()
         self.windowssettings_frame.grid_forget()  # remove login frame
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_web_controll(self):
         self.isTokenLatest()
         self.web_block_frame.grid_forget()  # remove login frame
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_scanstart(self):
         self.isTokenLatest()
         self.scanning_frame.grid_forget()  # remove login frame
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
 
     def back_expertscan_from_modify(self):
         self.isTokenLatest()
@@ -1122,5 +1130,6 @@ class App(customtkinter.CTk):
                         hs.write(f'[Activity]> No forbidden application found at {raw_datetime()}!\n')
                         hs.close()
 if __name__ == "__main__":
+    time.sleep(7)
     app = App()
     app.mainloop()
