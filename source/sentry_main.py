@@ -326,7 +326,7 @@ class App(customtkinter.CTk):
         #Mainframe, the main back point of all functional frame.
         self.main_frame = customtkinter.CTkFrame(self, corner_radius=0)
         login_image = ImageTk.PhotoImage(Image.open(current_path + r"/images/sentry_logo.png"))
-        self.fake_button_image = customtkinter.CTkButton(self.main_frame, text="", image = login_image, width=20, height=20, fg_color="#000000", hover_color="#000000")
+        self.fake_button_image = customtkinter.CTkButton(self.main_frame, text="", image = login_image, width=20, height=20, fg_color="#000000", hover_color="#000000", corner_radius=(30))
         self.fake_button_image .grid(row=1, column=0, padx=15, pady=(40, 4))
         self.usernamebanner = customtkinter.CTkLabel(self.main_frame, text="",
                                             font=customtkinter.CTkFont(size=10))
@@ -359,7 +359,7 @@ class App(customtkinter.CTk):
         #The frame where you can start expertscan (as a function).
         self.scanning_frame = customtkinter.CTkFrame(self, corner_radius=0)
         login_image = ImageTk.PhotoImage(Image.open(current_path + r"/images/sentry_logo.png"))
-        self.fake_button_image = customtkinter.CTkButton(self.scanning_frame, text="", image = login_image, width=20, height=20, fg_color="#000000", hover_color="#000000")
+        self.fake_button_image = customtkinter.CTkButton(self.scanning_frame, text="", image = login_image, width=20, height=20, fg_color="#000000", hover_color="#000000", corner_radius=(30))
         self.fake_button_image .grid(row=0, column=0, padx=15, pady=(40, 4))
         self.scanbanner = customtkinter.CTkLabel(self.scanning_frame, text="Scanning system.",
                                             font=customtkinter.CTkFont(size=20))
