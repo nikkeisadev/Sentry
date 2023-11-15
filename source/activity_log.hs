@@ -316,3 +316,7 @@
 [Activity]> No forbidden application found at 2023-09-02 12:33:17.367625!
 [Activity]> No forbidden application found at 2023-09-02 12:37:15.889099!
 [Activity]> No forbidden application found at 2023-09-02 12:40:15.851468!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-15 19:52:11.919492!
+[Activity]> No forbidden application found at 2023-11-15 19:52:12.730197!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-15 19:55:25.856167!
+[Activity]> No forbidden application found at 2023-11-15 19:55:26.685154!

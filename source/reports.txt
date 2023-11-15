@@ -1,2 +1,10 @@
 MySQL Server 8.0;2023-09-0212:37:08
 MySQL Installer - Community;2023-09-0212:37:08
+MySQL Server 8.0;2023-11-1519:51:55
+MySQL Router 8.0;2023-11-1519:51:55
+MySQL Examples and Samples 8.0;2023-11-1519:51:55
+MySQL Installer - Community;2023-11-1519:51:55
+MySQL Server 8.0;2023-11-1519:51:55
+MySQL Router 8.0;2023-11-1519:51:55
+MySQL Examples and Samples 8.0;2023-11-1519:51:55
+MySQL Installer - Community;2023-11-1519:51:55
