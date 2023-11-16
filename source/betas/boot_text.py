@@ -48,3 +48,5 @@ loading_bar(10)
 
 print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Connecting to SQL server...", Fore.WHITE)
 loading_bar(20)
+
+print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> {Fore.GREEN}OK{Fore.WHITE}", Fore.WHITE)
