@@ -1064,7 +1064,6 @@ class App(customtkinter.CTk):
     
     
     def EXPERTSCAN(self):
-        illegal_activity = ''
         RUNTIME_PROCESSES = []
         noBlacklistedActivity = True 
         global MACHINE_ID
@@ -1079,56 +1078,40 @@ class App(customtkinter.CTk):
         self.injectApplications()
 
         for process in psutil.process_iter():
-            RUNTIME_PROCESSES.append(process.name())
-        for app_name in self.APPLICATION_INJECTS:
-            if RUNTIME_PROCESSES.__contains__(app_name["app"]):
-                
-                reportToSQLDatabase(f'[!][RUNTIME][{app_name["app"]}]', f'{current_date} {current_time}', MACHINE_ID, 'Blacklisted application in runtime!')
-                
-                with open('activity_log.hs', 'a', encoding='utf-8') as hs:
+            process_name = process.name()
+            RUNTIME_PROCESSES.append(process_name)
+            
+            for app_name in self.APPLICATION_INJECTS:
+                if app_name["app"] == process_name:
+                    reportToSQLDatabase(f'[!][RUNTIME][{app_name["app"]}]', f'{current_date} {current_time}', MACHINE_ID, 'Blacklisted application in runtime!')
+                    
+                    with open('activity_log.hs', 'a', encoding='utf-8') as hs:
                         hs.write(f'[Activity]> Forbidden application in the system: {app_name["app"]} at {raw_datetime()}!\n')
                         hs.close()
-                
-                noBlacklistedActivity = False
-                print(EMPTUM_CONSOLE_PREFIX + "A Blacklisted process just found!")
-                os.system("taskkill /f /im " + '"' + app_name["app"] + '"')
-                print(EMPTUM_CONSOLE_PREFIX + "Process has been terminated!")
-                illegal_activity = 'BLACKLISTED APPLICATION'
-                
-                for process in psutil.process_iter():
-                    RUNTIME_PROCESSES.append(process.name())
-                toastNotification('SENTRY - Better School Cyber Security', f"Blacklisted activity! - {current_date}", 'SENTRY detected Blacklisted activity in your runtime! Action reported, and logged!', r"\images/system_alert.ico", 'False', '', '')
-                self.APPLICATION_INJECTS = []
-            else:
-                RUNTIME_PROCESSES = []
-                app = ''
-                for process in psutil.process_iter():
-                    RUNTIME_PROCESSES.append(process.name())
+                    
+                    noBlacklistedActivity = False
+                    print(EMPTUM_CONSOLE_PREFIX + "A Blacklisted process was found!")
+                    os.system("taskkill /f /im " + '"' + app_name["app"] + '"')
+                    print(EMPTUM_CONSOLE_PREFIX + "Process has been terminated!")
+                    toastNotification('SENTRY - Better School Cyber Security', f"Blacklisted activity! - {current_date}", 'SENTRY detected Blacklisted activity in your runtime! Action reported, and logged!', r"\images/system_alert.ico", 'False', '', '')
+                    self.APPLICATION_INJECTS = []
         
-        installation_found = False
-        for installed_app in self.INSTALLATIONS_INJECTS:
-            for item in winapps.list_installed():
-                print(item.name)
-                if item.name.lower().__contains__(installed_app["app"].lower()):
-                    installations.append(item.name)
-                    found = f'{item.name};{current_date}{current_time}\n'
-                    print(f'{EMPTUM_CONSOLE_PREFIX} {item.name} found, installed at: {item.install_date}!\n')
-                    with open('reports.txt', 'a', encoding='utf-8') as f:
-                        toastNotification('SENTRY - Better School Cyber Security', f"Blacklisted installation! - {current_date}", 'SENTRY detected Blacklisted installation in your system! Action reported, and logged!', r"\images/system_alert.ico", 'False', '', '')
-                        f.write(found)
-                        f.close()
-                        installation_found = True
-
+        installation_found = any(
+            item.name.lower().__contains__(installed_app["app"].lower())
+            for installed_app in self.INSTALLATIONS_INJECTS
+            for item in winapps.list_installed()
+        )
+        
         if installation_found:
             print(f'{EMPTUM_CONSOLE_PREFIX}Blacklisted installations found!')
-            installation_found = False
             noBlacklistedActivity = False
+            toastNotification('SENTRY - Better School Cyber Security', f"Blacklisted installation! - {current_date}", 'SENTRY detected Blacklisted installation in your system! Action reported, and logged!', r"\images/system_alert.ico", 'False', '', '')
 
-        if noBlacklistedActivity == True:
+        if noBlacklistedActivity:
             toastNotification('SENTRY - Better School Cyber Security', f"No Blacklisted activity! - {current_date}", 'There is no Blacklisted activity in your system!', r"\images/system_scan_fine.ico", 'False', '', '')
             with open('activity_log.hs', 'a', encoding='utf-8') as hs:
-                        hs.write(f'[Activity]> No forbidden application found at {raw_datetime()}!\n')
-                        hs.close()
+                hs.write(f'[Activity]> No forbidden application found at {raw_datetime()}!\n')
+                hs.close()
 if __name__ == "__main__":
     time.sleep(7)
     app = App()
