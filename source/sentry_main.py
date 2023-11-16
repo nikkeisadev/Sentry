@@ -1,27 +1,27 @@
 import ctypes
-import os,time,psutil,winapps,hashlib,os.path,datetime,platform,subprocess,customtkinter,mysql.connector,sys
+import os,threading,time,psutil,winapps,hashlib,os.path,datetime,platform,subprocess,customtkinter,mysql.connector,sys
 from pathlib import Path
 from PIL import Image, ImageTk
 from winotify import Notification, audio
-from colorama import init
-init(strip=not sys.stdout.isatty())
-from termcolor import cprint 
-import threading
+from colorama import init, Fore
 
-
-subprefix = """
-                 ____  _____ _   _ _____ ______   __
-                / ___|| ____| \ | |_   _|  _ \ \ / /
-                \___ \|  _| |  \| | | | | |_) \ V /
-                 __)  | |___| |\  | | | |  _ < | |
-                |____/|_____|_| \_| |_| |_| \_\|_|
-╭――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――╮
-│             A way for a Better School Cyber Security!            │
-│[] Cyber Security software designed for school computers.         │
-│[] Made with love, by: Nikke.                                     │
-│[] Working with customtkinter UI. Alpha version, unredy for build.│
-╰――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――╯              
----------------------------SENTRY---------------------------
+subprefix = f"""{Fore.MAGENTA}
+                                        _.oo.
+                 _.u[[/;:,.         .odMMMMMM'
+              .o888UU[[[/;:-.  .o@P^    MMM^
+             oN88888UU[[[/;::-.        dP^
+            dNMMNN888UU[[[/;:--.   .o@P^
+           ,MMMMMMN888UU[[/;::-. o@^
+           NNMMMNN888UU[[[/~.o@P^
+           888888888UU[[[/o@^-..
+          oI8888UU[[[/o@P^:--..
+       .@^  YUU[[[/o@^;::---..
+     oMP     ^/o@P^;:::---..
+  .dMMM    .o@^ ^;::---...
+ dMMMMMMM@^`       `^^^^
+YMMMUP^
+ ^^
+{Fore.WHITE}
 """
 
 customtkinter.set_appearance_mode("dark")
@@ -1112,6 +1112,7 @@ class App(customtkinter.CTk):
             with open('activity_log.hs', 'a', encoding='utf-8') as hs:
                 hs.write(f'[Activity]> No forbidden application found at {raw_datetime()}!\n')
                 hs.close()
+
 if __name__ == "__main__":
     time.sleep(7)
     app = App()
