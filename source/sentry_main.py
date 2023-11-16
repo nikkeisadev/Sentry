@@ -1124,7 +1124,7 @@ class App(customtkinter.CTk):
             installation_found = False
             noBlacklistedActivity = False
 
-        if noBlacklistedActivity == False:
+        if noBlacklistedActivity == True:
             toastNotification('SENTRY - Better School Cyber Security', f"No Blacklisted activity! - {current_date}", 'There is no Blacklisted activity in your system!', r"\images/system_scan_fine.ico", 'False', '', '')
             with open('activity_log.hs', 'a', encoding='utf-8') as hs:
                         hs.write(f'[Activity]> No forbidden application found at {raw_datetime()}!\n')
