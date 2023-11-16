@@ -43,5 +43,8 @@ def loading_bar(loading_steps):
 print(Fore.MAGENTA + f"[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Inintializing Sentry, please wait.", Fore.WHITE)
 loading_bar(2)
 
-print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Looking up directories.", Fore.WHITE)
+print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Looking up directories...", Fore.WHITE)
 loading_bar(10)
+
+print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Connecting to SQL server...", Fore.WHITE)
+loading_bar(20)
