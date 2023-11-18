@@ -69,9 +69,12 @@ class UI(customtkinter.CTkScrollableFrame):
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-        self.login_frame = UI(master=self, width=360, height=200)
-        self.login_frame.grid(row=0, column=0, padx=20, pady=20)
-        self.title("SENTRY - Activity Report")
+        self.login_frame = UI(master=self, width=370, height=200)
+        self.login_frame.grid(row=0, column=0, padx=0, pady=0)
+        self.title("SENTRY - Activity Reports")
+        self.iconpath = ImageTk.PhotoImage(file=os.path.join("images","runtime_icon.png"))
+        self.wm_iconbitmap()
+        self.iconphoto(False, self.iconpath)
         self.resizable(False, False)
 
 app = App()

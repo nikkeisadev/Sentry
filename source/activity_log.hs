@@ -320,3 +320,35 @@
 [Activity]> No forbidden application found at 2023-11-15 19:52:12.730197!
 [Activity]> Forbidden application in the system: Discord.exe at 2023-11-15 19:55:25.856167!
 [Activity]> No forbidden application found at 2023-11-15 19:55:26.685154!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-16 16:17:52.236551!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:15:41.942000!
+[Activity]> No forbidden application found at 2023-11-18 10:15:41.942000!
+[Activity]> No forbidden application found at 2023-11-18 10:15:41.942000!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:19:01.294725!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:20:45.512910!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:20:45.512910!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> No forbidden application found at 2023-11-18 10:20:45.512910!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:27:55.911878!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:27:55.911878!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:27:55.911878!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:31:44.174942!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:31:44.174942!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:31:44.174942!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:31:44.174942!

@@ -5,25 +5,6 @@ from PIL import Image, ImageTk
 from winotify import Notification, audio
 from colorama import init, Fore
 
-subprefix = f"""{Fore.MAGENTA}
-                                        _.oo.
-                 _.u[[/;:,.         .odMMMMMM'
-              .o888UU[[[/;:-.  .o@P^    MMM^
-             oN88888UU[[[/;::-.        dP^
-            dNMMNN888UU[[[/;:--.   .o@P^
-           ,MMMMMMN888UU[[/;::-. o@^
-           NNMMMNN888UU[[[/~.o@P^
-           888888888UU[[[/o@^-..
-          oI8888UU[[[/o@P^:--..
-       .@^  YUU[[[/o@^;::---..
-     oMP     ^/o@P^;:::---..
-  .dMMM    .o@^ ^;::---...
- dMMMMMMM@^`       `^^^^
-YMMMUP^
- ^^
-{Fore.WHITE}
-"""
-
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
 
@@ -31,6 +12,7 @@ idList = []
 installations = []
 sentRequest = False
 installation_found = False
+init_success = False
 switchPerm = True
 found = ''
 
@@ -45,77 +27,157 @@ home_directory = os.path.expanduser( '~' )
 CWD_PATH = os.getcwd()
 USER_NAME = Path.home()
 USERNAME_RUNTIME = platform.uname()
-EMPTUM_CONSOLE_PREFIX = '[SENTRY]> '
+EMPTUM_CONSOLE_PREFIX = f'{Fore.MAGENTA}[{Fore.WHITE}SENTRY{Fore.MAGENTA}]{Fore.WHITE}> '
 SPI_SETDESKWALLPAPER = 20
 MACHINE_ID = None
 
+
+print(f"""{Fore.MAGENTA}
+                                                                                                                              
+                                                                                                                                                                                                                                         
+                @@@@@@@@@@                                                                                                    
+             @@@@@@@@@@@@@@@@                                                                                                 
+            @@@@@@@@@@@@@@@@@@                                                                                                
+           @@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@  @@@@@@@@@@@@ @@@@     @@@ @@@@@@@@@@@@@@@@@@@@@@@@   @@@     @@@@        
+          @@@@@@@@@@@@@@@@@@@@@@       @@@@                       @@@@@@   @@@      @@@              @@@   @@@   @@@@         
+     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   @@@@@@@@@@@  @@@@@@@@@@@@ @@@@@@@@ @@@      @@@     @@@@@@@@@@@@    @@@@@@@@          
+     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@              @@@@  @@@@@@      @@@     @@@@@@@@@@        @@@@            
+          @@@@@@@@@@@@@@@@@@@@@@        @@@@@@@@@@@  @@@@@@@@@@@@ @@@     @@@@      @@@     @@@    @@@@@@     @@@@            
+            @@@@@@@@@@@@@@@@@@                                                                                                
+              @@@@@@@@@@@@@@                                                                                                  
+                 @@@@@@@@                                                                                                     
+                                                                                                                                                                                                                                             
+{Fore.WHITE}
+""")
+
+class SQLControll_Init(threading.Thread):
+    def run(self):
+        global init_success
+        init_success = False
+        mydb = mysql.connector.connect(
+        host = "127.0.0.1",
+        port = 8080,
+        user = "root",
+        password = "emptum-chan",
+        database = "token_storage"
+        )
+        mycursor = mydb.cursor()
+
+        if mydb.is_connected:
+            init_success = True
+            pass
+        else:
+            init_success = False
+            time.sleep(2)
+            self.run()
+
+class SourceControll_Init(threading.Thread):
+    def run(self):
+        global EMPTUM_CONSOLE_PREFIX
+        global init_success
+        init_success = False
+        if os.path.isfile(r"unloaded_processes.hs"):
+            init_success = True
+            pass
+        else:
+            with open(r'unloaded_processes.hs', 'x') as f:
+                init_success = False
+                f.write("Minecraft.exe;default\nLively.exe;default\nDiscord.exe;default\nVivaldi.exe;default\n")
+                time.sleep(1)
+                init_success = True
+        if os.path.isfile(r"login_log.hs"):
+            init_success = True
+            pass
+        else:
+            with open(r'login_log.hs', 'x') as f:
+                init_success = False
+                f.write(f"{EMPTUM_CONSOLE_PREFIX}Created login log file at {current_date} {current_time}!")
+                time.sleep(1)
+                init_success = True
+        if os.path.isfile(r"activity_log.hs"):
+            init_success = True
+            pass
+        else:
+            with open(r'activity_log.hs', 'x') as f:
+                init_success = False
+                f.write(f"{EMPTUM_CONSOLE_PREFIX}Created activity log file at {current_date} {current_time}!")
+                time.sleep(1)
+                init_success = True
+        if os.path.isfile(r"addresses.sv"):
+            init_success = True
+            pass
+        else:
+            with open(r'addresses.sv', 'x') as f:
+                init_success = False
+                f.write("")
+                time.sleep(1)
+                init_success = True
+        if os.path.isfile(r"machineid.sv"):
+            init_success = True
+            pass
+        else:
+            with open(r'machineid.sv', 'x') as f:
+                init_success = False
+                f.write("")
+                time.sleep(1)
+                init_success = True
+        if os.path.isfile(r"scansettings.sv"):
+            init_success = True
+            pass
+        else:
+            with open(r'scansettings.sv', 'x') as f:
+                init_success = False
+                f.write("scan.wallpaper.wallon\nscan.installs.installson\nscan.startup.starton\nscan.runtime.runon")
+                time.sleep(1)
+                init_success = True
+
+def init_bar(loading_steps, load_type):
+    global init_success
+    total_length = 40  # Total length of the loading bar
+    fill_char = f'{Fore.WHITE}█'   # Character used to fill the loading bar
+    empty_char = f'{Fore.MAGENTA}-'  # Character used for empty portion of the loading bar
+        
+    if load_type == 'source':
+        source_control = SourceControll_Init()
+        source_control.start()
+
+    elif load_type == 'sql':
+        sql_control = SQLControll_Init()
+        sql_control.start()
+    
+    progress = 0
+    while progress <= 100:
+        filled_length = int(total_length * progress / 100)
+        empty_length = total_length - filled_length
+        
+        bar = fill_char * filled_length + empty_char * empty_length
+        percentage = f'{Fore.WHITE}{progress}%'
+        
+        sys.stdout.write('\r' + f'{Fore.MAGENTA}|{bar}{Fore.MAGENTA}| {percentage}')
+        sys.stdout.flush()
+
+        if init_success:
+            progress += loading_steps
+        else:
+            pass
+
+print(Fore.MAGENTA + f"[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Inintializing Sentry, please wait.", Fore.WHITE)
+init_bar(2, 'source')
+
+print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Connecting to SQL server...", Fore.WHITE)
+init_bar(100, 'sql')
+
+print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> {Fore.GREEN}OK{Fore.WHITE}", Fore.WHITE)
 
 #DEVELOPER MODE
 #You should leave this boolean off, enable only when smth is not okay...
 #A Great option when the SQL server is down!
 developer_mode = True
 
-print(subprefix)
 print(EMPTUM_CONSOLE_PREFIX + f"Logged in Runtime as: {USER_NAME}" + " at " + current_time + "!")  
 print(EMPTUM_CONSOLE_PREFIX + str(CWD_PATH) + ' - Current Working Directory.')
 print(EMPTUM_CONSOLE_PREFIX + 'SENTRY is running in console. Interface with CUSTOMTKINTER.')
 print(f'{EMPTUM_CONSOLE_PREFIX}Start checking logs, and shared values!')
-
-def completeCorruptionScan():
-    if os.path.isfile(r"unloaded_processes.hs"):
-        print(f"{EMPTUM_CONSOLE_PREFIX}Blacklisted processes file found! SENTRY now able to read it.")
-    else:
-        print(f"{EMPTUM_CONSOLE_PREFIX}unloaded_prcoesses.hs not found! Blacklisted processes created! EMPTUM now able to read it.")
-        with open(r'unloaded_processes.hs', 'x') as f:
-            f.write("Minecraft.exe;default\nLively.exe;default\nDiscord.exe;default\nVivaldi.exe;default\n")
-    if os.path.isfile(r"login_log.hs"):
-        print(f"{EMPTUM_CONSOLE_PREFIX}Login log found!")
-    else:
-        print(f"{EMPTUM_CONSOLE_PREFIX}Activity log is not found, is it missing? Creating a new one!\n")
-        with open(r'login_log.hs', 'x') as f:
-            f.write(f"{EMPTUM_CONSOLE_PREFIX}Created login log file at {current_date} {current_time}!")
-    if os.path.isfile(r"activity_log.hs"):
-        print(f"{EMPTUM_CONSOLE_PREFIX}Activity log found!")
-    else:
-        print(f"{EMPTUM_CONSOLE_PREFIX}Activity log is not found, is it missing? Creating a new one!\n")
-        with open(r'activity_log.hs', 'x') as f:
-            f.write(f"{EMPTUM_CONSOLE_PREFIX}Created activity log file at {current_date} {current_time}!")
-    if os.path.isfile(r"addresses.sv"):
-        print(f"{EMPTUM_CONSOLE_PREFIX}Forbidden Websites list found! Skipping...")
-    else:
-        print(f"{EMPTUM_CONSOLE_PREFIX}Forbidden Websites shared value not found! Creating a new one!")
-        with open(r'addresses.sv', 'x') as f:
-            f.write("")
-    if os.path.isfile(r"machineid.sv"):
-        print(f"{EMPTUM_CONSOLE_PREFIX}Machine ID log found.")
-    else:
-        print(f"{EMPTUM_CONSOLE_PREFIX}SENTRY unable to read the Machine ID, redefining a new one....")
-        with open(r'machineid.sv', 'x') as f:
-            f.write("")
-    if os.path.isfile(r"scansettings.sv"):
-        print(f"{EMPTUM_CONSOLE_PREFIX}Scan settings found.")
-    else:
-        print(f"{EMPTUM_CONSOLE_PREFIX}SENTRY unable to find scan settings, using default.")
-        with open(r'scansettings.sv', 'x') as f:
-            f.write("scan.wallpaper.wallon\nscan.installs.installson\nscan.startup.starton\nscan.runtime.runon")
-
-def connectingDatabase():
-    mydb = mysql.connector.connect(
-    host = "127.0.0.1",
-    port = 8080,
-    user = "root",
-    password = "emptum-chan",
-    database = "token_storage"
-    )
-    mycursor = mydb.cursor()
-    print(f'{EMPTUM_CONSOLE_PREFIX}Trying connection to the SQL database!')
-
-    if mydb.is_connected:
-        print(f'{EMPTUM_CONSOLE_PREFIX}Connected to {mydb._host}:{mydb._port} with {mydb._user}!')
-    else:
-        print(f'{EMPTUM_CONSOLE_PREFIX}Connection failed! Retrying at {mydb._host}:{mydb._port} with {mydb._user}!')
-        time.sleep(2)
-        connectingDatabase()
 
 def reportToSQLDatabase(aboutReport, aboutDatetime, aboutID, aboutInforamtion):
     mydb = mysql.connector.connect(
@@ -192,20 +254,42 @@ def readID():
     with open(r'machineid.sv', 'r') as idSharedValue:
         MACHINE_ID = idSharedValue.read().rstrip()
 
-def autoscan_boot():
-    os.system('cmd /k python autoscan_task.py')
-
-class CodeThread(threading.Thread):
+class BootScreen(threading.Thread):
     def run(self):
         # Run the other Python code
         subprocess.call(['python', 'boot_screen.py'])
 
-code_thread = CodeThread()
-code_thread.start()
+class ActivityThread(threading.Thread):
+    def run(self):
+        # Run the other Python code
+        subprocess.call(['python', 'activity_report.py'])
 
-#autoscan_boot()
-connectingDatabase()
-completeCorruptionScan()
+class WebThread(threading.Thread):
+    def run(self):
+        # Run the other Python code
+        subprocess.call(['python', 'web_ui.py'])
+
+class InstallationsThread(threading.Thread):
+    def run(self):
+        # Run the other Python code
+        subprocess.call(['python', 'installations_ui.py'])
+
+class AppsThread(threading.Thread):
+    def run(self):
+        # Run the other Python code
+        subprocess.call(['python', 'apps_ui.py'])
+
+
+class AutoScan(threading.Thread):
+    def run(self):
+        subprocess.call(['python', 'autoscan_task.py'])
+autoScan = AutoScan()
+autoScan.start()
+
+
+bootScreen = BootScreen()
+bootScreen.start()
+
 readID()
 defineID()
 toastNotification('SENTRY - Better School Cyber Security', 'Welcome back!', 'SENTRY is ready to go!', r"\images\system_default_notification.ico", 'False', '', '')
@@ -785,13 +869,17 @@ class App(customtkinter.CTk):
         self.EXPERTSCAN()
     
     def launch_activity_reports(self):
-        subprocess.run(["python", r'activity_report.py'])
+        activity = ActivityThread()
+        activity.start()
     def launch_apps_ui(self):
-        subprocess.run(["python", r'apps_ui.py'])
+        apps = AppsThread()
+        apps.start()
     def launch_web_ui(self):
-        subprocess.run(["python", r'web_ui.py'])
+        web = WebThread()
+        web.start()
     def launch_installations_ui(self):
-        subprocess.run(["python", r'installations_ui.py'])
+        installation = InstallationsThread()
+        installation.start()
 
     def open_modify(self):
         with open(r'scansettings.sv', 'r') as fp:
@@ -1016,7 +1104,6 @@ class App(customtkinter.CTk):
                 self.INSTALLATIONS_INJECTS.append(d)
             hs.close()
         except FileNotFoundError:
-            completeCorruptionScan()
             self.injectApplications()
 
     def injectApplications(self):
@@ -1031,7 +1118,6 @@ class App(customtkinter.CTk):
                 self.APPLICATION_INJECTS.append(d)
             hs.close()
         except FileNotFoundError:
-            completeCorruptionScan()
             self.injectApplications()
         
     def installationscheck(self):

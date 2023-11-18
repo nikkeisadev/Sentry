@@ -1,38 +1,17 @@
 import os
 import time
 import psutil  
-import hashlib
-import secrets
 import os.path
-import pandas as pd
 import platform  
 import ctypes
 import datetime
 import winapps
 from pathlib import Path
 from winotify import Notification, audio
-import tkinter
-from PIL import Image, ImageTk
-import customtkinter
+import colorama
+from colorama import Fore
 
 raw_datetime = datetime.datetime.now()
-customtkinter.set_appearance_mode("dark")
-customtkinter.set_default_color_theme("green")
-
-subprefix = """
- _______                                         
-(_______)        _                               
- _______ _   _ _| |_ ___   ___  ____ _____ ____  
-|  ___  | | | (_   _) _ \ /___)/ ___|____ |  _ \ 
-| |   | | |_| | | || |_| |___ ( (___/ ___ | | | |
-|_|   |_|____/   \__)___/(___/ \____)_____|_| |_|                                                            
-
-       <= Emptum base code for scanning =>
-           Made with love, by: Nikke.
-
-"""
-print(subprefix)
-
 installations = []
 illegal_installations =['Epic', 'Discord', 'Opera']
 
@@ -46,7 +25,7 @@ switchPerm = True
 CWD_PATH = os.getcwd()
 USER_NAME = Path.home()
 USERNAME_RUNTIME = platform.uname()
-EMPTUM_CONSOLE_PREFIX = '[EMPTUM]> '
+EMPTUM_CONSOLE_PREFIX = f'{Fore.MAGENTA}[{Fore.WHITE}SENTRY{Fore.MAGENTA}]{Fore.WHITE}> '
 SPI_SETDESKWALLPAPER = 20
 
 scanwallpaper = True
@@ -87,6 +66,10 @@ def defineApplicationKeysLoaded():
 
 def STANDARD_SCAN_LOOP():
     found = ''
+    global scanruntime
+    global scaninstallations
+    global scanwallpaper
+    global scanstartup
     with open(r'scansettings.sv', 'r') as fp:
             lines = fp.readlines()
             for row in lines:
@@ -114,7 +97,7 @@ def STANDARD_SCAN_LOOP():
     if scanwallpaper:
         for process in psutil.process_iter():
             RUNTIME_PROCESSES.append(process.name())
-        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, str(CWD_PATH) + r"\images\emptum_default_wallpaper.png" , 0)
+        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, str(CWD_PATH) + r"/images/sentry_default_wallpaper.png" , 0)
         
     if scanruntime:
         hs = open('unloaded_processes.hs', encoding='utf-8')
@@ -132,9 +115,9 @@ def STANDARD_SCAN_LOOP():
                         hs.write(f'[Activity]> Forbidden application in the system: {app_name["app"]} at {raw_datetime}!\n')
                         hs.close()
                 noAppsFound = True
-                print(EMPTUM_CONSOLE_PREFIX + "An Illegal process just found!")
+                print(EMPTUM_CONSOLE_PREFIX + f"{Fore.YELLOW}An Illegal process just found!")
                 os.system("taskkill /f /im " + app_name["app"])
-                print(EMPTUM_CONSOLE_PREFIX + "Process has been terminated!")
+                print(EMPTUM_CONSOLE_PREFIX + f"{Fore.GREEN}Process has been terminated!")
                 illegal_activity = 'FORBIDDEN APPLICATION'
                 for process in psutil.process_iter():
                     RUNTIME_PROCESSES.append(process.name())
@@ -157,9 +140,8 @@ def STANDARD_SCAN_LOOP():
                     RUNTIME_PROCESSES.append(process.name())
         if noAppsFound == False:
             print(f'{EMPTUM_CONSOLE_PREFIX}No illegal processes found in runtime!')
-            with open('activity_log.hs', 'a', encoding='utf-8') as hs:
-                        hs.write(f'[Activity]> No forbidden application found at {raw_datetime}!\n')
-                        hs.close()
+            pass
+
     if scaninstallations:
         installation_found = False
         for app in illegal_installations:
@@ -167,7 +149,7 @@ def STANDARD_SCAN_LOOP():
                 if item.name.lower().__contains__(app.lower()):
                     installations.append(item.name)
                     found = found + f'{EMPTUM_CONSOLE_PREFIX} {item.name} found, installed at: {item.install_date}!\n'
-                    print(f'{EMPTUM_CONSOLE_PREFIX} {item.name} found, installed at: {item.install_date}!\n')
+                    print(f'{EMPTUM_CONSOLE_PREFIX} {Fore.MAGENTA}{item.name}{Fore.YELLOW} found, installed at: {item.install_date}!\n')
                     with open('installations.hs', 'a', encoding='utf-8') as f:
                         toast = Notification(app_id="EMPTUM - Better School Cyber Security",
                             title="Installation found! - " + str(current_date), 
@@ -189,14 +171,14 @@ def STANDARD_SCAN_LOOP():
         ss_list = os.listdir(path)
         illegalFileInStartup = False
 
-        print(f'{EMPTUM_CONSOLE_PREFIX}Found files in startup folder: {ss_list}\n{EMPTUM_CONSOLE_PREFIX}Start removing illegal files...')
+        print(f'{EMPTUM_CONSOLE_PREFIX}Found files in startup folder: {Fore.MAGENTA}{ss_list}')
         for file in ss_list:
             if 'desktop.ini' in file: pass
             else:
-                print(f'{EMPTUM_CONSOLE_PREFIX}{file} found, deleted!') 
+                print(f'{EMPTUM_CONSOLE_PREFIX}{Fore.YELLOW}{file} found, deleted!') 
                 illegalFileInStartup = True
                 os.remove(path + file)
         if illegalFileInStartup != True: print(f'{EMPTUM_CONSOLE_PREFIX}No illegal file(s) found in Startup folder!')
 while True:
-     time.sleep(7)
+     time.sleep(1)
      STANDARD_SCAN_LOOP()
