@@ -11,9 +11,12 @@ from winotify import Notification, audio
 import colorama
 from colorama import Fore
 
+INSTALLATIONS_INJECTS = []
+APPLICATION_INJECTS = []
+illegal_installations = []
 raw_datetime = datetime.datetime.now()
 installations = []
-illegal_installations =['Epic', 'Discord', 'Opera']
+installations =[]
 
 global found
 found = ''
@@ -33,11 +36,39 @@ scaninstallations = True
 scanstartup = True
 scanruntime = True
 
-illegal_activity = 'NO ILLEGAL ACTIVITY YET'
+illegal_activity = 'NO BLACKLISTED ACTIVITY YET'
 local_time = time.localtime()
 current_time = time.strftime("%H:%M:%S", local_time)
 current_date = datetime.date.today()
 current_path = os.path.dirname(os.path.realpath(__file__))
+
+def injectInstallations(self):
+        self.INSTALLATIONS_INJECTS = []
+        hs = open('installations.hs', encoding='utf-8')
+        try:
+            for x in hs:
+                d = {}
+                data = x.strip().split(";")
+                d["app"]=str(data[0])
+                d["datetime"]=str(data[1])
+                self.INSTALLATIONS_INJECTS.append(d)
+            hs.close()
+        except FileNotFoundError:
+            self.injectInstallations()
+
+def injectApplications(self):
+    self.APPLICATION_INJECTS = []
+    hs = open('unloaded_processes.hs', encoding='utf-8')
+    try:
+        for x in hs:
+            d = {}
+            data = x.strip().split(";")
+            d["app"]=str(data[0])
+            d["datetime"]=str(data[1])
+            self.APPLICATION_INJECTS.append(d)
+        hs.close()
+    except FileNotFoundError:
+        self.injectApplications()
 
 if os.path.isfile(r"set_auto_scan.sv"):
     print(f"{EMPTUM_CONSOLE_PREFIX}Shared value (set_auto_scan.sv) found! EMPTUM is able to read autoscan settings!")
@@ -115,15 +146,15 @@ def STANDARD_SCAN_LOOP():
                         hs.write(f'[Activity]> Forbidden application in the system: {app_name["app"]} at {raw_datetime}!\n')
                         hs.close()
                 noAppsFound = True
-                print(EMPTUM_CONSOLE_PREFIX + f"{Fore.YELLOW}An Illegal process just found!")
+                print(EMPTUM_CONSOLE_PREFIX + f"{Fore.YELLOW}A Blacklisted process just found!")
                 os.system("taskkill /f /im " + app_name["app"])
                 print(EMPTUM_CONSOLE_PREFIX + f"{Fore.GREEN}Process has been terminated!")
                 illegal_activity = 'FORBIDDEN APPLICATION'
                 for process in psutil.process_iter():
                     RUNTIME_PROCESSES.append(process.name())
                 toast = Notification(app_id="EMPTUM - Better School Cyber Security",
-                            title="Illegal activity! - " + str(current_date), 
-                            msg="EMPTUM detected illegal activity in your runtime! Action reported, and logged!",
+                            title="Blacklisted activity! - " + str(current_date), 
+                            msg="EMPTUM detected Blacklisted activity in your runtime! Action reported, and logged!",
                             #duration="long",
                             icon=str(CWD_PATH) + r"\images/system_alert.ico"
                             )
@@ -131,7 +162,7 @@ def STANDARD_SCAN_LOOP():
                 toast.add_actions(label= app_name["app"] + " - " + illegal_activity + " - " + current_time)
                 toast.show()
                 with open(r'reports.txt', 'a') as f:
-                    f.write(f'{app_name["app"]};{current_date}{current_time};Illegal runtime!(Auto task kill)\n')
+                    f.write(f'{app_name["app"]};{current_date}{current_time};Blacklisted runtime!(Auto task kill)\n')
                 APPLICATION_KEYS_LOADED = []
             else:
                 RUNTIME_PROCESSES = []
@@ -139,7 +170,7 @@ def STANDARD_SCAN_LOOP():
                 for process in psutil.process_iter():
                     RUNTIME_PROCESSES.append(process.name())
         if noAppsFound == False:
-            print(f'{EMPTUM_CONSOLE_PREFIX}No illegal processes found in runtime!')
+            print(f'{EMPTUM_CONSOLE_PREFIX}No Blacklisted processes found in runtime!')
             pass
 
     if scaninstallations:
@@ -153,18 +184,20 @@ def STANDARD_SCAN_LOOP():
                     with open('installations.hs', 'a', encoding='utf-8') as f:
                         toast = Notification(app_id="EMPTUM - Better School Cyber Security",
                             title="Installation found! - " + str(current_date), 
-                            msg="EMPTUM detected illegal activity in your runtime! Action reported, and logged!",
+                            msg="EMPTUM detected Blacklisted activity in your runtime! Action reported, and logged!",
                             #duration="long",
                             icon=str(CWD_PATH) + r"\images/system_alert.ico"
                             )
                         toast.set_audio(audio.Default, loop=False)
-                        toast.add_actions(label= item.name + " - " + 'Illegal Installation' + " - " + current_time)
+                        toast.add_actions(label= item.name + " - " + 'Blacklisted Installation' + " - " + current_time)
                         toast.show()
                         f.write(found)
                         f.close()
+                        with open(r'reports.txt', 'a') as f:
+                            f.write(f'{item.name};{current_date}{current_time};Blacklisted installation\n')
                         installation_found = True
         if installation_found:
-            print(f'{EMPTUM_CONSOLE_PREFIX}Illegal installations found! Logged into [ installations.hs ]!')
+            print(f'{EMPTUM_CONSOLE_PREFIX}Blacklisted installations found! Logged into [ installations.hs ]!')
             installation_found = False
     if scanstartup:
         path = "C://Users//Nikke//AppData//Roaming//Microsoft//Windows//Start Menu//Programs//Startup//"
@@ -178,6 +211,9 @@ def STANDARD_SCAN_LOOP():
                 print(f'{EMPTUM_CONSOLE_PREFIX}{Fore.YELLOW}{file} found, deleted!') 
                 illegalFileInStartup = True
                 os.remove(path + file)
+                with open(r'reports.txt', 'a') as f:
+                    f.write(f'{file};{current_date}{current_time};Blacklisted file in startup\n')
+                        
         if illegalFileInStartup != True: print(f'{EMPTUM_CONSOLE_PREFIX}No illegal file(s) found in Startup folder!')
 while True:
      time.sleep(1)

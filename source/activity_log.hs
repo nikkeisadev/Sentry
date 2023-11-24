@@ -352,3 +352,11 @@
 [Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:31:44.174942!
 [Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:31:44.174942!
 [Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 10:31:44.174942!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 20:24:23.163243!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 22:35:16.429258!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 22:39:00.894052!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 22:39:00.894052!
+[Activity]> Forbidden application in the system: Messenger.exe at 2023-11-18 23:07:28.594211!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 23:07:28.594211!
+[Activity]> Forbidden application in the system: Messenger.exe at 2023-11-18 23:07:28.594211!
+[Activity]> Forbidden application in the system: Discord.exe at 2023-11-18 23:07:28.594211!

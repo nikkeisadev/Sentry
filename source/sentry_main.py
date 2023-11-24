@@ -517,8 +517,8 @@ class App(customtkinter.CTk):
         addapplicationimage = ImageTk.PhotoImage(Image.open(current_path + r"/images/add_app.png"))
         self.fake_button_image = customtkinter.CTkButton(self.add_app_frame, text="", image = addapplicationimage, width=20, height=20, fg_color="#302c2c", hover_color="#302c2c")
         self.fake_button_image .grid(row=0, column=0, padx=15, pady=(17, 2))
-        self.loggedin_welcome = customtkinter.CTkLabel(self.add_app_frame, text="Illegal Processes",
-                                                 font=customtkinter.CTkFont(size=24, weight="bold"))
+        self.loggedin_welcome = customtkinter.CTkLabel(self.add_app_frame, text="Blacklisted Process",
+                                                 font=customtkinter.CTkFont(size=22, weight="bold"))
         self.loggedin_welcome.grid(row=1, column=0, padx=15, pady=(0, 0))
         self.loggedin_welcometwo = customtkinter.CTkLabel(self.add_app_frame, text="Want to add a Blacklisted application?\nOnly .exe format accepted as input!",
                                                  font=customtkinter.CTkFont(size=10))
@@ -1104,7 +1104,7 @@ class App(customtkinter.CTk):
                 self.INSTALLATIONS_INJECTS.append(d)
             hs.close()
         except FileNotFoundError:
-            self.injectApplications()
+            self.injectInstallations()
 
     def injectApplications(self):
         self.APPLICATION_INJECTS = []
@@ -1200,6 +1200,6 @@ class App(customtkinter.CTk):
                 hs.close()
 
 if __name__ == "__main__":
-    time.sleep(7)
+    time.sleep(10)
     app = App()
     app.mainloop()
