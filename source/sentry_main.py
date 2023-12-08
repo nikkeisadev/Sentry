@@ -50,26 +50,34 @@ print(f"""{Fore.MAGENTA}
 {Fore.WHITE}
 """)
 
+#DEVELOPER MODE
+#You should leave this boolean off, enable only when smth is not okay...
+#A Great option when the SQL server is down!
+developer_mode = True
+
 class SQLControll_Init(threading.Thread):
     def run(self):
-        global init_success
-        init_success = False
-        mydb = mysql.connector.connect(
-        host = "127.0.0.1",
-        port = 8080,
-        user = "root",
-        password = "emptum-chan",
-        database = "token_storage"
-        )
-        mycursor = mydb.cursor()
-
-        if mydb.is_connected:
-            init_success = True
-            pass
-        else:
+        if developer_mode is False:
+            global init_success
             init_success = False
-            time.sleep(2)
-            self.run()
+            mydb = mysql.connector.connect(
+            host = "127.0.0.1",
+            port = 8080,
+            user = "root",
+            password = "emptum-chan",
+            database = "token_storage"
+            )
+            mycursor = mydb.cursor()
+
+            if mydb.is_connected:
+                init_success = True
+                pass
+            else:
+                init_success = False
+                time.sleep(2)
+                self.run()
+        else:
+            pass
 
 class SourceControll_Init(threading.Thread):
     def run(self):
@@ -168,11 +176,6 @@ print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> Connecting t
 init_bar(100, 'sql')
 
 print(Fore.MAGENTA + f"\n[{Fore.WHITE}#{Fore.MAGENTA}]{Fore.WHITE}> {Fore.GREEN}OK{Fore.WHITE}", Fore.WHITE)
-
-#DEVELOPER MODE
-#You should leave this boolean off, enable only when smth is not okay...
-#A Great option when the SQL server is down!
-developer_mode = True
 
 print(EMPTUM_CONSOLE_PREFIX + f"Logged in Runtime as: {USER_NAME}" + " at " + current_time + "!")  
 print(EMPTUM_CONSOLE_PREFIX + str(CWD_PATH) + ' - Current Working Directory.')
