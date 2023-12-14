@@ -1,5 +1,6 @@
 # SENTRY - BETTER SCHOOL CYBER SECURITY 👾
-Are you annoyed having problems while using school computers? Sentry is the solution! Prevent blacklisted files, websites, downloads, and system settings on computers! Deny access to folders, or files.
+| SENTRY 2023-2024 made by nikkeisadev. ⚜
+Are you annoyed having problems while using school computers? Sentry is the solution! Prevent blacklisted files, websites, downloads, and system settings on computers! Deny access to folders, or files. ✔
 ## About the Project 💻
 SENTRY is a product of one year hard development in Python. 🎉 The first security system was named as SSA (School Security Assistant), and then DEPLOY, EMPTUM, and now as SENTRY, known as the first security system designed for school computers. 🌌
 ## Screenshots of SENTRY ✨
