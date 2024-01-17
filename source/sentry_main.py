@@ -1,5 +1,4 @@
-import ctypes
-import os,threading,time,psutil,winapps,hashlib,os.path,datetime,platform,subprocess,customtkinter,mysql.connector,sys
+import ctypes,os,threading,time,psutil,winapps,hashlib,os.path,datetime,platform,subprocess,customtkinter,mysql.connector,sys
 from pathlib import Path
 from PIL import Image, ImageTk
 from winotify import Notification, audio
