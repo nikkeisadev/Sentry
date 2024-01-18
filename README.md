@@ -1,9 +1,4 @@
-Sure! Here's an example of how you can style your GitHub README for your Sentry school cyber security system:
-
-# Sentry - School Cyber Security System
-
-![Sentry Logo]()
-
+![image](https://github.com/nikkeisadev/Sentry/assets/137056695/db78c61d-6be6-434d-b573-08bc29c63726)
 Sentry is a school cyber security system developed in Python. It is a private project that I have been working on for one year. The goal of Sentry is to provide robust security measures for educational institutions, ensuring the safety and privacy of students and staff.
 
 ## Features
