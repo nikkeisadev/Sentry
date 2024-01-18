@@ -14,6 +14,18 @@ Sentry is a school cyber security system developed in Python. It is a private pr
 - Secure data storage and encryption
 - Incident reporting and logging
 
+## Usage
+- Protect the computer from malicious programs in startup folder.
+- Prevent wallpaper changes.
+- Generate reports on security incidents and vulnerabilities.
+- Report to the database.
+- Scan files for viruses.
+- Block different websites.
+- Prevent installed apps from runing for a specified time. (Disable any app which can students help on exams)
+
+## Contributing
+As this is a private project, there is no possibility for external contributions. However, if you have any suggestions or feedback, feel free to reach out to me.
+
 # Setuping
 If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
 ## To clone Sentry, follow these steps:
@@ -25,25 +37,9 @@ Download release
 1. Click to Download the release.
 2. Then you just need to unzip the program, you don't need to install any requirements.
 
-## Usage
-Once Sentry is installed and running, you can perform the following actions:
-
-- Protect the computer from malicious programs in startup folder.
-- Prevent wallpaper changes.
-- Generate reports on security incidents and vulnerabilities.
-- Report to the database.
-- Scan files for viruses.
-- Block different websites.
-- Prevent installed apps from runing for a specified time. (Disable any app which can students help on exams)
-
-## Contributing
-
-As this is a private project, there is no possibility for external contributions. However, if you have any suggestions or feedback, feel free to reach out to me.
 
 ## Contact
-
 For any inquiries or support, please contact me at [notnikkecrd@gmail.com](mailto:notnikkecrd@gmail.com).
 
 ## License
-
 This project is licensed under the [MIT License](LICENSE).
