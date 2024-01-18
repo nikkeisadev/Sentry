@@ -20,6 +20,7 @@ After that you will face the menu of Sentry where you can select various options
 Clone sourcecode
 1. Clone the repository: `git clone https://github.com/nikkeisadev/Sentry.git`
 2. Install the required dependencies: `pip install -r requirements.txt` (You can find the requirements in main)
+
 Download release
 1. Click to Download the release.
 2. Then you just need to unzip the program, you don't need to install any requirements.
