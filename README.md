@@ -21,22 +21,24 @@ Clone sourcecode
 1. Clone the repository: `git clone https://github.com/nikkeisadev/Sentry.git`
 2. Install the required dependencies: `pip install -r requirements.txt` (You can find the requirements in main)
 3. Run the security system by `python sentry_main.py`
-4. 
+
 Download release 
 1. Click to Download the release.
-2. Then you just need to unzip the program, you don't need to install any requirements.
+2. Then you just need to unzip the program, you don't need to install any requirements. 🌐
 ## SQL Database 🎛
 Open sql folder, and there you will find all the files which needed for the database. (Including already stored informations) 
 - Download MySQL
 - Install workbench, and server (Try to install with the same version number)
 - Creat new test connection and insert host informations from sql_structure.txt.
-- Then the server should run, and you have to import the sql files from the folder, and the backend is ready.
+- Then the server should run, and you have to import the sql files from the folder, and the backend is ready. ✅
   
 ## Contributing ❗
 As this is a private project, there is no possibility for external contributions. However, if you have any suggestions or feedback, feel free to reach out to me.
+Sorry, I'm a lonely programmer, working by myself.
 
 ## Contact 📨
 For any inquiries or support, please contact me at [notnikkecrd@gmail.com](mailto:notnikkecrd@gmail.com).
+Discord: notnikkecrd, contact me anytime! 😇
 
 ## License 📜
 This project is licensed under the [MIT License](LICENSE).
