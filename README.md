@@ -15,7 +15,7 @@ If the client, and the enviorment is ready, then you just have to start the soft
 After that you will face the menu of Sentry where you can select various options, such as blocking websites, blockin apps from running, etc.
 
 # Setup client and database for testing
-| If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
+> If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
 ### Clone sourcecode
 1. Clone the repository: `git clone https://github.com/nikkeisadev/Sentry.git`
 2. Install the required dependencies: `pip install -r requirements.txt` (You can find the requirements in main)
