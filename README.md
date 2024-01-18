@@ -21,6 +21,7 @@ Clone sourcecode
 1. Clone the repository: `git clone https://github.com/nikkeisadev/Sentry.git`
 2. Install the required dependencies: `pip install -r requirements.txt` (You can find the requirements in main)
 3. Run the security system by `python sentry_main.py`
+4. 
 Download release 
 1. Click to Download the release.
 2. Then you just need to unzip the program, you don't need to install any requirements.
