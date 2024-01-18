@@ -1,0 +1,24 @@
+SOFTWARE LICENSE AGREEMENT
+
+1. Grant of License
+   1.1 License Grant: Licensor grants Licensee a non-exclusive, non-transferable license to use the Software for the purpose of enhancing the cybersecurity measures of the Licensee's school.
+   1.2 License Restrictions: Licensee shall not distribute, sublicense, modify, reverse engineer, or create derivative works of the Software without the prior written consent of the Licensor.
+
+2. Ownership and Intellectual Property
+   2.1 Ownership: The Software and all intellectual property rights related to the Software shall remain the exclusive property of the Licensor.
+   2.2 No Transfer of Ownership: This Agreement does not transfer any ownership rights of the Software to the Licensee.
+
+3. Support and Maintenance
+   3.1 Support: Licensor shall provide reasonable technical support to Licensee for the Software during the term of this Agreement.
+   3.2 Maintenance: Licensor shall provide updates and bug fixes to the Software as deemed necessary by the Licensor.
+
+4. Term and Termination
+   4.1 Term: This Agreement shall commence on the effective date and shall continue until terminated by either party.
+   4.2 Termination for Convenience: Either party may terminate this Agreement for any reason by providing written notice to the other party.
+   4.3 Termination for Breach: Either party may terminate this Agreement if the other party breaches any material provision of this Agreement and fails to cure such breach within thirty (30) days of receiving written notice.
+
+5. Limitation of Liability
+   5.1 No Warranty: The Software is provided "as is" without any warranty, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement.
+   5.2 Limitation of Liability: In no event shall the Licensor be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in connection with the use or performance of the Software.
+
+By using the Software, Licensee agrees to be bound by the terms and conditions of this Agreement.

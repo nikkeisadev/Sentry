@@ -1,0 +1,38 @@
+SENTRY SQL DATABASE STRUCTURE | 2024.01.18
+Made by nikkeisadev. -> Latest tree.
+
+Sentry Database (SQL) I. Bela Gimnazium
+ | 
+ host = "127.0.0.1" port = "8080" user = "root" password = "neumannverseny" database = "token_storage"
+ |
+ token_storage: Database
+    |
+    report_table: Table
+     |
+     about[str]
+     |
+     datetime[str]
+     |
+     id[str]
+     |
+     information[str]
+    |
+    machine_id: Table
+     |
+     id_table[int]
+    |
+    user_token: Table
+     |
+     user_name[str]
+     |
+     user_token[str]
+    |
+    token_requests_table: Table
+     |
+     request_table[str]
+     |
+     username_table[str]
+     |
+     hash_value[str]
+    |
+    
