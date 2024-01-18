@@ -30,6 +30,9 @@ EMPTUM_CONSOLE_PREFIX = f'{Fore.MAGENTA}[{Fore.WHITE}SENTRY{Fore.MAGENTA}]{Fore.
 SPI_SETDESKWALLPAPER = 20
 MACHINE_ID = None
 
+# SQL ADMINISTRATOR PASSWORD
+SQLPASSWORD = 'neumannverseny'
+
 
 print(f"""{Fore.MAGENTA}
                                                                                                                               
@@ -63,7 +66,7 @@ class SQLControll_Init(threading.Thread):
             host = "127.0.0.1",
             port = 8080,
             user = "root",
-            password = "emptum-chan",
+            password = SQLPASSWORD,
             database = "token_storage"
             )
             mycursor = mydb.cursor()
@@ -186,7 +189,7 @@ def reportToSQLDatabase(aboutReport, aboutDatetime, aboutID, aboutInforamtion):
         host = "127.0.0.1",
         port = 8080,
         user = "root",
-        password = "emptum-chan",
+        password = SQLPASSWORD,
         database = "token_storage"
     )
 
@@ -220,7 +223,7 @@ def defineID():
             host = "127.0.0.1",
             port = 8080,
             user = "root",
-            password = "emptum-chan",
+            password = SQLPASSWORD,
             database = "token_storage"
         )
     mycursor = mydb.cursor()
@@ -677,7 +680,7 @@ class App(customtkinter.CTk):
             host = "127.0.0.1",
             port = 8080,
             user = "root",
-            password = "emptum-chan",
+            password = SQLPASSWORD,
             database = "token_storage"
         )
         mycursor = mydb.cursor()
@@ -781,7 +784,7 @@ class App(customtkinter.CTk):
             host = "127.0.0.1",
             port = 8080,
             user = "root",
-            password = "emptum-chan",
+            password = SQLPASSWORD,
             database = "token_storage"
         )
         mycursor = mydb.cursor()
