@@ -14,14 +14,12 @@ Sentry is a **school cyber security system** developed in Python. It's a private
 If the client, and the enviorment is ready, then you just have to start the software. Then you have to register a user from the administrator terminal window, and then login with these credentials.
 After that you will face the menu of Sentry where you can select various options, such as blocking websites, blockin apps from running, etc.
 
-# Setup
-If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
-### To clone Sentry, follow these steps:
-Clone sourcecode
+# Setup client and database for testing
+| If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
+### Clone sourcecode
 1. Clone the repository: `git clone https://github.com/nikkeisadev/Sentry.git`
 2. Install the required dependencies: `pip install -r requirements.txt` (You can find the requirements in main)
-### To install release of Sentry:
-Download release
+### Download release
 1. Click to Download the release.
 2. Then you just need to unzip the program, you don't need to install any requirements.
 ## Contributing
