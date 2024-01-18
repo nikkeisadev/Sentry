@@ -16,15 +16,15 @@ After that you will face the menu of Sentry where you can select various options
 
 # Installation and backend setup for clients. 💻
 > If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
-## Downloading
+## Downloading ✅
 Clone sourcecode
 1. Clone the repository: `git clone https://github.com/nikkeisadev/Sentry.git`
 2. Install the required dependencies: `pip install -r requirements.txt` (You can find the requirements in main)
 
-Download release
+Download release 
 1. Click to Download the release.
 2. Then you just need to unzip the program, you don't need to install any requirements.
-## SQL Database
+## SQL Database 🎛
 Open sql folder, and there you will find all the files which needed for the database. (Including already stored informations) 
 - Download MySQL
 - Install workbench, and server (Try to install with the same version number)
