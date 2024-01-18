@@ -1,1 +1,0 @@
-[35m[[37mSENTRY[35m][37m> Generated log!
