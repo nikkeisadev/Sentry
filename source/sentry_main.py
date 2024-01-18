@@ -55,7 +55,7 @@ print(f"""{Fore.MAGENTA}
 #DEVELOPER MODE
 #You should leave this boolean off, enable only when smth is not okay...
 #A Great option when the SQL server is down!
-developer_mode = True
+developer_mode = True #Edit: you still have to run the server, and set up the tables.
 
 class SQLControll_Init(threading.Thread):
     def run(self):

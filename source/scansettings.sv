@@ -1,4 +1,4 @@
-scan.wallpaper.walloff
-scan.installs.installsoff
+scan.wallpaper.wallon
+scan.installs.installson
 scan.startup.startoff
 scan.runtime.runtimeoff
