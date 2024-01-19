@@ -12,9 +12,12 @@ Sentry is a **school cyber security system** developed in Python.  It's a privat
 
 ## Usage 📖
 If the client, and the enviorment is ready, then you just have to start the software. Then you have to register a user from the administrator terminal window, and then login with these credentials.
-After that you will face the menu of Sentry where you can select various options, such as blocking websites, blockin apps from running, etc. > To install and setup the enviorment please check above!
+After that you will face the menu of Sentry where you can select various options, such as blocking websites, blockin apps from running, etc. \
+
+> To install and setup the enviorment please check above!
 
 # Installation and backend setup for clients. 💻
+📌 YouTube video for setup: 
 > If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
 ## Downloading ✅
 Clone sourcecode
