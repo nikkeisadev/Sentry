@@ -27,9 +27,11 @@ Download release
 2. Then you just need to unzip the program, you don't need to install any requirements. 🌐
 ## SQL Database 🎛
 Open sql folder, and there you will find all the files which needed for the database. (Including already stored informations) 
-- Download MySQL
+- Download MySQL here: https://dev.mysql.com/downloads/installer/
 - Install workbench, and server (Try to install with the same version number)
-- Creat new test connection and insert host informations from sql_structure.txt.
+- Make the user root (to have access to everything), and the password should be `neumannverseny` on `8080` open port.
+- After installation click on start Workbench.
+- Creat new test connection and insert host informations from sql_structure.txt. `from /sql/`
 - Then the server should run, and you have to import the sql files from the folder, and the backend is ready. ✅
   
 ## Contributing ❗
