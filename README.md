@@ -33,6 +33,7 @@ Open sql folder, and there you will find all the files which needed for the data
 - After installation click on start Workbench.
 - Creat new test connection and insert host informations from sql_structure.txt. `from /sql/`
 - Then the server should run, and you have to import the sql files from the folder, and the backend is ready. ✅
+- IF THE IMPORT FAILED, THEN YOU CAN REBUILD THE SQL SCHEMAS FROM THE TXT!!!
   
 ## Contributing ❗
 As this is a private project, there is no possibility for external contributions. However, if you have any suggestions or feedback, feel free to reach out to me.
