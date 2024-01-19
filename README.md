@@ -48,4 +48,4 @@ For any inquiries or support, please contact me at [notnikkecrd@gmail.com](mailt
 Discord: notnikkecrd, contact me anytime! 😇
 
 ## License 📜
-This project is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs](LICENSE).
+This project is licensed under the [Creative Commons Zero CC0 ](LICENSE).
