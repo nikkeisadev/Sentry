@@ -1,7 +1,8 @@
 ![image](https://github.com/nikkeisadev/Sentry/assets/137056695/db78c61d-6be6-434d-b573-08bc29c63726)
 Sentry is a **school cyber security system** developed in Python.  It's a private project that I have been working on for one year. The goal of Sentry is to provide robust security measures for educational institutions, ensuring the safety of student's computers. 👾
 
-This project is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs](LICENSE).
+> This project is licensed under the [Creative Commons Zero CC0 ](LICENSE).
+
 ## Features ✨
 - Protect the computer from malicious programs in startup folder.
 - Prevent wallpaper changes.
