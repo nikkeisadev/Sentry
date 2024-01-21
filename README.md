@@ -3,6 +3,9 @@ Sentry is a **school cyber security system** developed in Python.  It's a privat
 
 > This project is licensed under the [Creative Commons Zero CC0 ](LICENSE).
 
+📌 YouTube demo video: 
+https://www.youtube.com/watch?v=pboiQy_5B8g
+
 ## Features ✨
 - Protect the computer from malicious programs in startup folder.
 - Prevent wallpaper changes.
@@ -19,7 +22,7 @@ After that you will face the menu of Sentry where you can select various options
 > To install and setup the enviorment please check above!
 
 # Installation and backend setup for clients. 💻
-📌 YouTube video for setup: 
+
 > If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
 ## Downloading ✅
 Clone sourcecode
