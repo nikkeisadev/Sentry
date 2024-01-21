@@ -1,4 +1,5 @@
-Lunar Client.exe;2023-08-22 10:23:40.703999
-Discord.exe;2023-09-01 19:05:07.340379
-opera.exe;2023-11-13 11:58:25.666607
-Messenger.exe;2023-11-18 23:08:11.888379
+Minecraft.exe;default
+Lively.exe;default
+Discord.exe;default
+Vivaldi.exe;defaultSpotfiy.exe;2024-01-21 11:10:19.222210
+Spotify.exe;2024-01-21 11:16:36.008922

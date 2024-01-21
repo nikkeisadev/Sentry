@@ -1,14 +1,19 @@
-Discord.exe;2023-11-2406:39:26;Blacklisted runtime!(Auto task kill)
-Messenger.exe;2023-11-2406:39:26;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-11-2406:39:26;Blacklisted runtime!(Auto task kill)
-Messenger.exe;2023-11-2406:39:26;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-11-2406:43:40;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-11-2406:43:40;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-11-2406:43:40;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-11-2406:43:40;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-11-2406:43:40;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-12-0411:36:33;Blacklisted runtime!(Auto task kill)
-Messenger.exe;2023-12-0411:36:33;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-12-0411:36:33;Blacklisted runtime!(Auto task kill)
-Discord.exe;2023-12-0411:36:33;Blacklisted runtime!(Auto task kill)
-Messenger.exe;2023-12-0411:36:33;Blacklisted runtime!(Auto task kill)
+Discord.exe;2024-01-2015:05:43;Blacklisted runtime!(Auto task kill)
+New Text Document.txt;2024-01-2021:00:42;Blacklisted file in startup
+New WinRAR ZIP archive.zip;2024-01-2021:00:42;Blacklisted file in startup
+asdasdd].bmp;2024-01-2021:00:42;Blacklisted file in startup
+Discord.exe;2024-01-2021:00:42;Blacklisted runtime!(Auto task kill)
+Discord.exe;2024-01-2022:46:46;Blacklisted runtime!(Auto task kill)
+Discord.exe;2024-01-2108:58:38;Blacklisted runtime!(Auto task kill)
+virus.bmp;2024-01-2108:58:38;Blacklisted file in startup
+Discord.exe;2024-01-2109:05:29;Blacklisted runtime!(Auto task kill)
+Discord.exe;2024-01-2111:09:03;Blacklisted runtime!(Auto task kill)
+getrektwindows.iusearchbtw;2024-01-2111:09:03;Blacklisted file in startup
+mechwartisagoodplace.yummy;2024-01-2111:09:03;Blacklisted file in startup
+virus.exe;2024-01-2111:09:03;Blacklisted file in startup
+New Rich Text Document.rtf;2024-01-2111:09:03;Blacklisted file in startup
+Discord.exe;2024-01-2111:15:47;Blacklisted runtime!(Auto task kill)
+Spotify.exe;2024-01-2111:15:47;Blacklisted runtime!(Auto task kill)
+getrektwindows.iusearchbtw;2024-01-2111:15:47;Blacklisted file in startup
+mechwartisagoodplace.exe;2024-01-2111:15:47;Blacklisted file in startup
+uwu.bmp;2024-01-2111:15:47;Blacklisted file in startup

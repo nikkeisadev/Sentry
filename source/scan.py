@@ -28,7 +28,7 @@ switchPerm = True
 CWD_PATH = os.getcwd()
 USER_NAME = Path.home()
 USERNAME_RUNTIME = platform.uname()
-EMPTUM_CONSOLE_PREFIX = f'{Fore.MAGENTA}[{Fore.WHITE}SENTRY{Fore.MAGENTA}]{Fore.WHITE}> '
+SENTRY_CONSOLE_PREFIX = f'{Fore.MAGENTA}[{Fore.WHITE}SENTRY{Fore.MAGENTA}]{Fore.WHITE}> '
 SPI_SETDESKWALLPAPER = 20
 
 scanwallpaper = True
@@ -71,17 +71,17 @@ def injectApplications(self):
         self.injectApplications()
 
 if os.path.isfile(r"set_auto_scan.sv"):
-    print(f"{EMPTUM_CONSOLE_PREFIX}Shared value (set_auto_scan.sv) found! EMPTUM is able to read autoscan settings!")
+    print(f"{SENTRY_CONSOLE_PREFIX}Shared value (set_auto_scan.sv) found! SENTRY is able to read autoscan settings!")
 else:
-    print(f"{EMPTUM_CONSOLE_PREFIX}Shared value (set_auto_scan.sv) NOT found! Creating one in working directory!")
+    print(f"{SENTRY_CONSOLE_PREFIX}Shared value (set_auto_scan.sv) NOT found! Creating one in working directory!")
     with open(r'set_auto_scan.sv', 'x') as f:
          f.write('auto_scan_mode$on\nwallpaper_protection$on\nruntime_check$on\ndirectory_scan$on\ninstallations$on\nwebblock$on')
 if os.path.isfile(r"installations.hs"):
-    print(f'{EMPTUM_CONSOLE_PREFIX}Installations log found! No need to generate one! Skipping...')
+    print(f'{SENTRY_CONSOLE_PREFIX}Installations log found! No need to generate one! Skipping...')
 else:
-    print(f"{EMPTUM_CONSOLE_PREFIX}Installations NOT log found! Generating a new one!")
+    print(f"{SENTRY_CONSOLE_PREFIX}Installations NOT log found! Generating a new one!")
     with open(r'installations.hs', 'x') as f:
-         f.write(f'{EMPTUM_CONSOLE_PREFIX}Generated log!')
+         f.write(f'{SENTRY_CONSOLE_PREFIX}Generated log!')
 
 def defineApplicationKeysLoaded():
     global APPLICATION_KEYS_LOADED
@@ -146,15 +146,15 @@ def STANDARD_SCAN_LOOP():
                         hs.write(f'[Activity]> Forbidden application in the system: {app_name["app"]} at {raw_datetime}!\n')
                         hs.close()
                 noAppsFound = True
-                print(EMPTUM_CONSOLE_PREFIX + f"{Fore.YELLOW}A Blacklisted process just found!")
+                print(SENTRY_CONSOLE_PREFIX + f"{Fore.YELLOW}A Blacklisted process just found!")
                 os.system("taskkill /f /im " + app_name["app"])
-                print(EMPTUM_CONSOLE_PREFIX + f"{Fore.GREEN}Process has been terminated!")
+                print(SENTRY_CONSOLE_PREFIX + f"{Fore.GREEN}Process has been terminated!")
                 illegal_activity = 'FORBIDDEN APPLICATION'
                 for process in psutil.process_iter():
                     RUNTIME_PROCESSES.append(process.name())
-                toast = Notification(app_id="EMPTUM - Better School Cyber Security",
+                toast = Notification(app_id="SENTRY - Better School Cyber Security",
                             title="Blacklisted activity! - " + str(current_date), 
-                            msg="EMPTUM detected Blacklisted activity in your runtime! Action reported, and logged!",
+                            msg="SENTRY detected Blacklisted activity in your runtime! Action reported, and logged!",
                             #duration="long",
                             icon=str(CWD_PATH) + r"\images/system_alert.ico"
                             )
@@ -170,7 +170,7 @@ def STANDARD_SCAN_LOOP():
                 for process in psutil.process_iter():
                     RUNTIME_PROCESSES.append(process.name())
         if noAppsFound == False:
-            print(f'{EMPTUM_CONSOLE_PREFIX}No Blacklisted processes found in runtime!')
+            print(f'{SENTRY_CONSOLE_PREFIX}No Blacklisted processes found in runtime!')
             pass
 
     if scaninstallations:
@@ -179,8 +179,8 @@ def STANDARD_SCAN_LOOP():
             for item in winapps.list_installed():
                 if item.name.lower().__contains__(app.lower()):
                     installations.append(item.name)
-                    found = found + f'{EMPTUM_CONSOLE_PREFIX} {item.name} found, installed at: {item.install_date}!\n'
-                    print(f'{EMPTUM_CONSOLE_PREFIX} {Fore.MAGENTA}{item.name}{Fore.YELLOW} found, installed at: {item.install_date}!\n')
+                    found = found + f'{SENTRY_CONSOLE_PREFIX} {item.name} found, installed at: {item.install_date}!\n'
+                    print(f'{SENTRY_CONSOLE_PREFIX} {Fore.MAGENTA}{item.name}{Fore.YELLOW} found, installed at: {item.install_date}!\n')
                     with open('installations.hs', 'a', encoding='utf-8') as f:
                         toast = Notification(app_id="EMPTUM - Better School Cyber Security",
                             title="Installation found! - " + str(current_date), 
@@ -197,24 +197,24 @@ def STANDARD_SCAN_LOOP():
                             f.write(f'{item.name};{current_date}{current_time};Blacklisted installation\n')
                         installation_found = True
         if installation_found:
-            print(f'{EMPTUM_CONSOLE_PREFIX}Blacklisted installations found! Logged into [ installations.hs ]!')
+            print(f'{SENTRY_CONSOLE_PREFIX}Blacklisted installations found! Logged into [ installations.hs ]!')
             installation_found = False
     if scanstartup:
-        path = "C://Users//Nikke//AppData//Roaming//Microsoft//Windows//Start Menu//Programs//Startup//"
+        path = f'C://Users//{os.getenv("USERNAME")}//AppData//Roaming//Microsoft//Windows//Start Menu//Programs//Startup//'
         ss_list = os.listdir(path)
         illegalFileInStartup = False
 
-        print(f'{EMPTUM_CONSOLE_PREFIX}Found files in startup folder: {Fore.MAGENTA}{ss_list}')
+        print(f'{SENTRY_CONSOLE_PREFIX}Found files in startup folder: {Fore.MAGENTA}{ss_list}')
         for file in ss_list:
             if 'desktop.ini' in file: pass
             else:
-                print(f'{EMPTUM_CONSOLE_PREFIX}{Fore.YELLOW}{file} found, deleted!') 
+                print(f'{SENTRY_CONSOLE_PREFIX}{Fore.YELLOW}{file} found, deleted!') 
                 illegalFileInStartup = True
                 os.remove(path + file)
                 with open(r'reports.txt', 'a') as f:
                     f.write(f'{file};{current_date}{current_time};Blacklisted file in startup\n')
                         
-        if illegalFileInStartup != True: print(f'{EMPTUM_CONSOLE_PREFIX}No illegal file(s) found in Startup folder!')
+        if illegalFileInStartup != True: print(f'{SENTRY_CONSOLE_PREFIX}No illegal file(s) found in Startup folder!')
 while True:
      time.sleep(1)
      STANDARD_SCAN_LOOP()

@@ -3,6 +3,7 @@ from pathlib import Path
 from PIL import Image, ImageTk
 from winotify import Notification, audio
 from colorama import init, Fore
+from playsound import playsound
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
@@ -21,7 +22,8 @@ current_time = time.strftime("%H:%M:%S", local_time)
 current_date = datetime.date.today()
 current_path = os.path.dirname(os.path.realpath(__file__))
 home_directory = os.path.expanduser( '~' )
-
+scriptDir = os.path.dirname(os.path.realpath(__file__))
+soundFile = (scriptDir + os.path.sep + '/sounds/click.wav')
 
 CWD_PATH = os.getcwd()
 USER_NAME = Path.home()
@@ -55,7 +57,7 @@ print(f"""{Fore.MAGENTA}
 #DEVELOPER MODE
 #You should leave this boolean off, enable only when smth is not okay...
 #A Great option when the SQL server is down!
-developer_mode = True #Edit: you still have to run the server, and set up the tables.
+developer_mode = False #Edit: you still have to run the server, and set up the tables.
 
 class SQLControll_Init(threading.Thread):
     def run(self):
@@ -80,6 +82,10 @@ class SQLControll_Init(threading.Thread):
                 self.run()
         else:
             pass
+
+class clickSoundThread(threading.Thread):
+    def run(self):
+        playsound(soundFile)
 
 class SourceControll_Init(threading.Thread):
     def run(self):
@@ -184,13 +190,15 @@ print(EMPTUM_CONSOLE_PREFIX + str(CWD_PATH) + ' - Current Working Directory.')
 print(EMPTUM_CONSOLE_PREFIX + 'SENTRY is running in console. Interface with CUSTOMTKINTER.')
 print(f'{EMPTUM_CONSOLE_PREFIX}Start checking logs, and shared values!')
 
+import mysql.connector
+
 def reportToSQLDatabase(aboutReport, aboutDatetime, aboutID, aboutInforamtion):
     mydb = mysql.connector.connect(
-        host = "127.0.0.1",
-        port = 8080,
-        user = "root",
-        password = SQLPASSWORD,
-        database = "token_storage"
+        host="127.0.0.1",
+        port=8080,
+        user="root",
+        password=SQLPASSWORD,
+        database="token_storage"
     )
 
     sql = "INSERT INTO report_table (about, datetime, id, information) VALUES (%s, %s, %s, %s)"
@@ -262,32 +270,32 @@ def readID():
 class BootScreen(threading.Thread):
     def run(self):
         # Run the other Python code
-        subprocess.call(['python', 'boot_screen.py'])
+        subprocess.call(['python', 'boot.py'])
 
 class ActivityThread(threading.Thread):
     def run(self):
         # Run the other Python code
-        subprocess.call(['python', 'activity_report.py'])
+        subprocess.call(['python', 'report.py'])
 
 class WebThread(threading.Thread):
     def run(self):
         # Run the other Python code
-        subprocess.call(['python', 'web_ui.py'])
+        subprocess.call(['python', 'web.py'])
 
 class InstallationsThread(threading.Thread):
     def run(self):
         # Run the other Python code
-        subprocess.call(['python', 'installations_ui.py'])
+        subprocess.call(['python', 'installations.py'])
 
 class AppsThread(threading.Thread):
     def run(self):
         # Run the other Python code
-        subprocess.call(['python', 'apps_ui.py'])
+        subprocess.call(['python', 'apps.py'])
 
 
 class AutoScan(threading.Thread):
     def run(self):
-        subprocess.call(['python', 'autoscan_task.py'])
+        subprocess.call(['python', 'scan.py'])
 autoScan = AutoScan()
 autoScan.start()
 
@@ -297,6 +305,7 @@ bootScreen.start()
 
 readID()
 defineID()
+time.sleep(5)
 toastNotification('SENTRY - Better School Cyber Security', 'Welcome back!', 'SENTRY is ready to go!', r"\images\system_default_notification.ico", 'False', '', '')
 
 class App(customtkinter.CTk):
@@ -347,16 +356,16 @@ class App(customtkinter.CTk):
         self.fake_button_image .grid(row=1, column=0, padx=15, pady=(30, 10))
         self.banner = customtkinter.CTkLabel(self.login_frame, text='Welcome to SENTRY!\nA way for a Better School Cyber Security!',
                                                 font=customtkinter.CTkFont(size=13))
-        self.banner.grid(row=2, column=0, padx=15, pady=(20, 0))
-        self.information_text = customtkinter.CTkLabel(self.login_frame, text='Please login with your name and login token!',
+        self.banner.grid(row=2, column=0, padx=15, pady=(10, 0))
+        self.information_text = customtkinter.CTkLabel(self.login_frame, text='Please login with your name and password!',
                                                 font=customtkinter.CTkFont(size=10))
         self.information_text.grid(row=3, column=0, padx=15, pady=(0, 0))
         border_image_login = ImageTk.PhotoImage(Image.open(current_path + r"/images/border.png"))
         self.fake_button_image = customtkinter.CTkButton(self.login_frame, text="", image = border_image_login, width=20, height=20, fg_color="#302c2c", hover_color="#302c2c")
         self.fake_button_image .grid(row=4, column=0, padx=15, pady=(0, 0))
-        self.username_entry = customtkinter.CTkEntry(self.login_frame, width=200, placeholder_text="Administrator name:")
+        self.username_entry = customtkinter.CTkEntry(self.login_frame, width=200, placeholder_text="Name:")
         self.username_entry.grid(row=5, column=0, padx=30, pady=(0, 15))
-        self.password_entry = customtkinter.CTkEntry(self.login_frame, width=200, show=".", placeholder_text="Insert the Login Token:")
+        self.password_entry = customtkinter.CTkEntry(self.login_frame, width=200, show=".", placeholder_text="Password:")
         self.password_entry.grid(row=6, column=0, padx=30, pady=(0, 15))
         self.login_button = customtkinter.CTkButton(self.login_frame, fg_color="#984cfc", hover_color="#882cfc", text="Login", command=self.login_event, width=100)
         self.login_button.grid(row=7, column=0, padx=30, pady=(10, 15))
@@ -377,10 +386,10 @@ class App(customtkinter.CTk):
         self.loggedin_welcome = customtkinter.CTkLabel(self.loggedin_frame, text="Success!",
                                                  font=customtkinter.CTkFont(size=40, weight="bold"))
         self.loggedin_welcome.grid(row=1, column=0, padx=15, pady=(0, 0))
-        self.loggedin_welcometwo = customtkinter.CTkLabel(self.loggedin_frame, text="You successfuly logged in to SENTRY!\nYou can now request an another login token!",
+        self.loggedin_welcometwo = customtkinter.CTkLabel(self.loggedin_frame, text="You successfuly logged in to SENTRY!\n",
                                                  font=customtkinter.CTkFont(size=10))
         self.loggedin_welcometwo.grid(row=2, column=0, padx=15, pady=(0, 0))
-        self.loggedin_label = customtkinter.CTkLabel(self.loggedin_frame, text="You have full access now.\nClick on the Next button to open the controll panel\nLogin saved " + str(current_date) + " " + str(current_time),
+        self.loggedin_label = customtkinter.CTkLabel(self.loggedin_frame, text="\nClick on the Next button to continue to \nthe control panel. Login saved \n" + str(current_date) + " " + str(current_time),
                                                  font=customtkinter.CTkFont(size=12))
         self.loggedin_label.grid(row=3, column=0, padx=15, pady=(120, 0))
         self.newtoken_button = customtkinter.CTkButton(self.loggedin_frame, text="Request New Token", command=self.sendTokenRequest, width=200, fg_color="#984cfc", hover_color="#882cfc",)
@@ -399,10 +408,10 @@ class App(customtkinter.CTk):
         self.failed_message = customtkinter.CTkLabel(self.failed_frame, text="Login failed!",
                                                  font=customtkinter.CTkFont(size=30, weight="bold"))
         self.failed_message.grid(row=1, column=0, padx=15, pady=(0, 0))
-        self.failed_messagetwo = customtkinter.CTkLabel(self.failed_frame, text="The login token with the administrator \nname is not activated!",
+        self.failed_messagetwo = customtkinter.CTkLabel(self.failed_frame, text="The password with the name\n can't be found!",
                                                  font=customtkinter.CTkFont(size=10))
         self.failed_messagetwo.grid(row=1, column=0, padx=15, pady=(60, 0))
-        self.failed_label = customtkinter.CTkLabel(self.failed_frame, text="Failed to login!\nCan't log in? Contact the administrator \nfor a new login token.",
+        self.failed_label = customtkinter.CTkLabel(self.failed_frame, text="Can't log in? Contact the administrator \nfor a new login token.",
                                                  font=customtkinter.CTkFont(size=12))
         self.failed_label.grid(row=2, column=0, padx=15, pady=(120, 0))
         self.newtoken_button = customtkinter.CTkButton(self.failed_frame, text="Request New Token", command=self.backtologin_event, width=200, fg_color="#984cfc", hover_color="#882cfc",)
@@ -423,15 +432,15 @@ class App(customtkinter.CTk):
         border_image_login = ImageTk.PhotoImage(Image.open(current_path + r"/images/border.png"))
         self.fake_button_image = customtkinter.CTkButton(self.main_frame, text="", image = border_image_login, width=20, height=20, fg_color="#302c2c", hover_color="#302c2c")
         self.fake_button_image .grid(row=3, column=0, padx=15, pady=(0, 0))
-        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Expert Scan", command=self.open_expertscan, width=200)
+        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Scanning", command=self.open_expertscan, width=200)
         self.back_button .grid(row=4, column=0, padx=30, pady=(4, 4))
-        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Windows Settings", command=self.open_winsettings, width=200)
+        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Settings permission", command=self.open_winsettings, width=200)
         self.back_button .grid(row=5, column=0, padx=30, pady=(4, 4))
         self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Processes", command=self.open_add_app, width=200)
         self.back_button .grid(row=6, column=0, padx=30, pady=(4, 4))
-        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Installed Apps", command=self.open_installations, width=200)
+        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Installations", command=self.open_installations, width=200)
         self.back_button .grid(row=7, column=0, padx=30, pady=(4, 4))
-        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Web Controll", command=self.open_webcontrollpanel, width=200)
+        self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Web Control", command=self.open_webcontrollpanel, width=200)
         self.back_button .grid(row=8, column=0, padx=30, pady=(4, 4))
         self.back_button  = customtkinter.CTkButton(self.main_frame, fg_color="#984cfc", hover_color="#882cfc", text="Check Activity", command=self.launch_activity_reports, width=200)
         self.back_button .grid(row=9, column=0, padx=30, pady=(4, 4))
@@ -456,9 +465,6 @@ class App(customtkinter.CTk):
         loadingbar = ImageTk.PhotoImage(Image.open(current_path + r"/images/border.png"))
         self.loadingbarimage = customtkinter.CTkButton(self.scanning_frame, text="", image = loadingbar, width=10, height=10, fg_color="#302c2c", hover_color="#302c2c")
         self.loadingbarimage.grid(row=2, column=0, padx=15, pady=(2, 0))
-        self.scanmessage = customtkinter.CTkLabel(self.scanning_frame, text="Click on back if you made up your mind, \nbut if you want to scan the system, \nplease click on the scan button!",
-                                            font=customtkinter.CTkFont(size=10))
-        self.scanmessage.grid(row=3, column=0, padx=15, pady=(10, 0))
         self.scanbutton = customtkinter.CTkButton(self.scanning_frame, text="Start scan", command=self.EXPERTSCAN, width=200, fg_color="#eb3434", hover_color="#e01d1d")
         self.scanbutton .grid(row=4, column=0, padx=15, pady=(30, 0))
         self.back_button = customtkinter.CTkButton(self.scanning_frame, text="Go back", command=self.back_mainframe_from_scanstart, width=200, fg_color="#eb3434", hover_color="#e01d1d")
@@ -480,10 +486,10 @@ class App(customtkinter.CTk):
         completedlogin_image = ImageTk.PhotoImage(Image.open(current_path + r"/images/add_app.png"))
         self.fake_button_image = customtkinter.CTkButton(self.modify_frame, text="", image = completedlogin_image, width=20, height=20, fg_color="#302c2c", hover_color="#302c2c")
         self.fake_button_image .grid(row=0, column=0, padx=15, pady=(10, 2))
-        self.loggedin_welcome = customtkinter.CTkLabel(self.modify_frame, text="Modify autoscan",
+        self.loggedin_welcome = customtkinter.CTkLabel(self.modify_frame, text="Automatic scan",
                                                  font=customtkinter.CTkFont(size=20, weight="bold"))
         self.loggedin_welcome.grid(row=1, column=0, padx=15, pady=(0, 0))
-        self.settings_banner = customtkinter.CTkLabel(self.modify_frame, text="Toogle the settings bellow of scanning.\nThe changes are always saved.",
+        self.settings_banner = customtkinter.CTkLabel(self.modify_frame, text="Toogle the settings bellow of scanning.\nThe changes are being saved.",
                                                 font=customtkinter.CTkFont(size=10))
         self.settings_banner.grid(row=2, column=0, padx=15, pady=(0, 2))
         border_image_login = ImageTk.PhotoImage(Image.open(current_path + r"/images/border.png"))
@@ -522,8 +528,8 @@ class App(customtkinter.CTk):
         addapplicationimage = ImageTk.PhotoImage(Image.open(current_path + r"/images/add_app.png"))
         self.fake_button_image = customtkinter.CTkButton(self.add_app_frame, text="", image = addapplicationimage, width=20, height=20, fg_color="#302c2c", hover_color="#302c2c")
         self.fake_button_image .grid(row=0, column=0, padx=15, pady=(17, 2))
-        self.loggedin_welcome = customtkinter.CTkLabel(self.add_app_frame, text="Blacklisted Process",
-                                                 font=customtkinter.CTkFont(size=22, weight="bold"))
+        self.loggedin_welcome = customtkinter.CTkLabel(self.add_app_frame, text="Processes",
+                                                 font=customtkinter.CTkFont(size=25, weight="bold"))
         self.loggedin_welcome.grid(row=1, column=0, padx=15, pady=(0, 0))
         self.loggedin_welcometwo = customtkinter.CTkLabel(self.add_app_frame, text="Want to add a Blacklisted application?\nOnly .exe format accepted as input!",
                                                  font=customtkinter.CTkFont(size=10))
@@ -556,10 +562,10 @@ class App(customtkinter.CTk):
         expertscanimage = ImageTk.PhotoImage(Image.open(current_path + r"/images/scan_system_expert.png"))
         self.fake_button_image = customtkinter.CTkButton(self.expertscan_frame, text="", image = expertscanimage, width=0, height=0, fg_color="#302c2c", hover_color="#302c2c")
         self.fake_button_image .grid(row=0, column=0, padx=15, pady=(40, 2))
-        self.loggedin_welcome = customtkinter.CTkLabel(self.expertscan_frame, text="Expert Scan",
+        self.loggedin_welcome = customtkinter.CTkLabel(self.expertscan_frame, text="Scanning",
                                                  font=customtkinter.CTkFont(size=30, weight="bold"))
         self.loggedin_welcome.grid(row=1, column=0, padx=15, pady=(0, 0))
-        self.loggedin_welcometwo = customtkinter.CTkLabel(self.expertscan_frame, text="Wanna make a stronger scan?\nUse the Expert Scan feature in SENTRY!",
+        self.loggedin_welcometwo = customtkinter.CTkLabel(self.expertscan_frame, text="Here, you can modify and run scanning\nprocesses in your system.",
                                                  font=customtkinter.CTkFont(size=10))
         self.loggedin_welcometwo.grid(row=2, column=0, padx=15, pady=(0, 0))
         purpleborderimage = ImageTk.PhotoImage(Image.open(current_path + r"/images/border.png"))
@@ -568,12 +574,12 @@ class App(customtkinter.CTk):
         self.autoscan_label = customtkinter.CTkLabel(self.expertscan_frame, text="Want to change the automatized scan?\nYou can select the actions here!",
                                                  font=customtkinter.CTkFont(size=12))
         self.autoscan_label.grid(row=4, column=0, padx=15, pady=(30, 3))
-        self.addillegal_process = customtkinter.CTkButton(self.expertscan_frame, text="Modify Autoscan", command=self.open_modify, width=200, fg_color="#984cfc", hover_color="#882cfc")
+        self.addillegal_process = customtkinter.CTkButton(self.expertscan_frame, text="Automatic scan", command=self.open_modify, width=200, fg_color="#984cfc", hover_color="#882cfc")
         self.addillegal_process .grid(row=5, column=0, padx=15, pady=(10, 0))
-        self.loggedin_label = customtkinter.CTkLabel(self.expertscan_frame, text="Click on the button to start scanning!\nThe scan is about a few secounds.",
+        self.loggedin_label = customtkinter.CTkLabel(self.expertscan_frame, text="Click on the button to start scanning.\nThe scan is about a few secounds.",
                                                  font=customtkinter.CTkFont(size=12))
         self.loggedin_label.grid(row=6, column=0, padx=15, pady=(20, 3))
-        self.addillegal_process = customtkinter.CTkButton(self.expertscan_frame, text="Start Scan", command=self.startscanonce, width=200, fg_color="#984cfc", hover_color="#882cfc")
+        self.addillegal_process = customtkinter.CTkButton(self.expertscan_frame, text="Scan", command=self.startscanonce, width=200, fg_color="#984cfc", hover_color="#882cfc")
         self.addillegal_process .grid(row=7, column=0, padx=15, pady=(10, 0))
         self.back_button = customtkinter.CTkButton(self.expertscan_frame, text="Back", command=self.back_mainframe_from_expertscan, width=200, fg_color="#eb3434", hover_color="#e01d1d")
         self.back_button .grid(row=8, column=0, padx=15, pady=(3, 10))
@@ -587,13 +593,13 @@ class App(customtkinter.CTk):
         expertscanimage = ImageTk.PhotoImage(Image.open(current_path + r"/images/win_settings.png"))
         self.fake_button_image = customtkinter.CTkButton(self.windowssettings_frame, text="", image = expertscanimage, width=0, height=0, fg_color="#302c2c", hover_color="#302c2c")
         self.fake_button_image .grid(row=0, column=0, padx=15, pady=(40, 2))
-        self.loggedin_welcome = customtkinter.CTkLabel(self.windowssettings_frame, text="Windows Settings",
+        self.loggedin_welcome = customtkinter.CTkLabel(self.windowssettings_frame, text="Settings permission",
                                                  font=customtkinter.CTkFont(size=20, weight="bold"))
         self.loggedin_welcome.grid(row=1, column=0, padx=15, pady=(0, 0))
         self.loggedin_welcometwo = customtkinter.CTkLabel(self.windowssettings_frame, text="Want to deny the settings in the system?\nYou can deny and allow it bellow.",
                                                  font=customtkinter.CTkFont(size=10))
         self.loggedin_welcometwo.grid(row=2, column=0, padx=15, pady=(0, 0))
-        self.loggedin_label = customtkinter.CTkLabel(self.windowssettings_frame, text="Click to deny or allow settings!\n Only with administrator privilages!",
+        self.loggedin_label = customtkinter.CTkLabel(self.windowssettings_frame, text="Only works with administrator privileges.",
                                                  font=customtkinter.CTkFont(size=12))
         self.loggedin_label.grid(row=4, column=0, padx=15, pady=(120, 3))
         self.turnon_settings_button  = customtkinter.CTkButton(self.windowssettings_frame, fg_color="#984cfc", hover_color="#882cfc", text="Block Settings", command=self.on_settingsperm, width=200)
@@ -704,6 +710,8 @@ class App(customtkinter.CTk):
 
 
     def login_event(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.PASSWORD_INPUT = self.password_entry.get()
         self.USERNAME_INPUT = self.username_entry.get()
         if developer_mode != True:
@@ -721,14 +729,14 @@ class App(customtkinter.CTk):
             
                 if userIndex == hashIndex:
                     print(f'{EMPTUM_CONSOLE_PREFIX}Login Successful as {self.USERNAME_INPUT}!')
-                    self.usernamebanner = customtkinter.CTkLabel(self.main_frame, text=f"Welcome {self.USERNAME_INPUT}!\nSelect an option bellow to modify Sentry.\nConnected to the SQL database.✅",
-                                            font=customtkinter.CTkFont(size=10))
+                    self.usernamebanner = customtkinter.CTkLabel(self.main_frame, text=f"Welcome {self.USERNAME_INPUT}!\nPlease select an option bellow.",
+                                            font=customtkinter.CTkFont(size=12))
                     self.usernamebanner.grid(row=2, column=0, padx=15, pady=(6, 6))
                     with open('login_log.hs', 'a', encoding='utf-8') as hs:
                         hs.write(f'Logged in successfuly at {current_date}, {current_time}!\nLogind save at loing_log.hs!\n==================SAVED==================\n')
                         hs.close()
                         self.login_frame.grid_forget()  # remove login frame
-                        self.loggedin_frame.grid(row=0, column=0, sticky="nsew", padx=100)  # show main frame    
+                        self.loggedin_frame.grid(row=0, column=0, sticky="nsew", padx=130)  # show main frame    
                 else:
                     print(f'{EMPTUM_CONSOLE_PREFIX}The login credentials were wrong! ')
                     self.login_frame.grid_forget()  # remove login frame
@@ -780,6 +788,8 @@ class App(customtkinter.CTk):
             pass
 
     def sendTokenRequest(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         mydb = mysql.connector.connect(
             host = "127.0.0.1",
             port = 8080,
@@ -797,96 +807,138 @@ class App(customtkinter.CTk):
         print(f'{EMPTUM_CONSOLE_PREFIX}New token request sent from {self.USERNAME_INPUT}!')
         
     def modifyautoscan(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         print(f"{EMPTUM_CONSOLE_PREFIX}Opening Autoscan modifying frame!")
     
     def next_event(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.loggedin_frame.grid_forget()  # remove login frame
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)  # show main frame
     
     def startscanonce(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.EXPERTSCANLOAD()
     
     def open_expertscan(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.main_frame.grid_forget()  # remove login frame
         self.expertscan_frame.grid(row=0, column=0, sticky="nsew", padx=120)
     
     def open_webcontrollpanel(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.main_frame.grid_forget()  # remove login frame
         self.web_block_frame.grid(row=0, column=0, sticky="nsew", padx=120)
     
     def open_winsettings(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.main_frame.grid_forget()  # remove login frame
         self.windowssettings_frame.grid(row=0, column=0, sticky="nsew", padx=120)  
     
     def open_installations(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.main_frame.grid_forget()  # remove login frame
         self.installations_frame.grid(row=0, column=0, sticky="nsew", padx=120) 
 
     def back_mainframe_from_installations(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.installations_frame.grid_forget()  # remove login frame
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90) 
     
     def back_mainframe_from_apps(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.add_app_frame.grid_forget()  # remove login frame
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_expertscan(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.expertscan_frame.grid_forget()  # remove login frame
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_win_settings(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.windowssettings_frame.grid_forget()  # remove login frame
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_web_controll(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.web_block_frame.grid_forget()  # remove login frame
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
     
     def back_mainframe_from_scanstart(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.scanning_frame.grid_forget()  # remove login frame
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=90)
 
     def back_expertscan_from_modify(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.modify_frame.grid_forget()  # remove login frame
         self.expertscan_frame.grid(row=0, column=0, sticky="nsew", padx=120)
     
     def open_add_app(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.main_frame.grid_forget()  # remove login frame
         self.add_app_frame.grid(row=0, column=0, sticky="nsew", padx=120)
     
     def back_event(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.EXPERTSCAN()
     
     def launch_activity_reports(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         activity = ActivityThread()
         activity.start()
     def launch_apps_ui(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         apps = AppsThread()
         apps.start()
     def launch_web_ui(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         web = WebThread()
         web.start()
     def launch_installations_ui(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         installation = InstallationsThread()
         installation.start()
 
     def open_modify(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         with open(r'scansettings.sv', 'r') as fp:
             lines = fp.readlines()
             for row in lines:
@@ -903,31 +955,43 @@ class App(customtkinter.CTk):
         self.modify_frame.grid(row=0, column=0, sticky="nsew", padx=120)
 
     def on_settingsperm(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         os.system(r"reg_settings_inject.bat")
         print(EMPTUM_CONSOLE_PREFIX + "Switching the permissions for the Windows Machine's settings.")
     
     def off_settingsperm(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         os.system(r"reg_settings_unlock.bat")
         print(EMPTUM_CONSOLE_PREFIX + "Switching the permissions for the Windows Machine's settings.")
     
     def backtologin_event(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.failed_frame.grid_forget()  # remove login frame
         self.login_frame.grid(row=0, column=0, sticky="nsew", padx=100, pady=20)  # show main frame
     
     def logout_event(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         self.main_frame.grid_forget()  # remove login frame
         self.login_frame.grid(row=0, column=0, sticky="nsew", padx=100, pady=20)  # show main frame
     
     def block_webaddress(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         print(f'{EMPTUM_CONSOLE_PREFIX}Blocking webpage!')
         os.system(r'host_settings_block.bat')
     
     #Scan modify definitions.
     def wallpaper_scan_toogle_off(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.wallpapertoogle = False
         self.wallpaper_button = customtkinter.CTkButton(self.modify_frame, text="   Wallpaper scan  DENIED  ", command=self.wallpaper_scan_toogle_on, width=20, fg_color="#eb3434", hover_color="#eb3434", 
                                             font=customtkinter.CTkFont(size=12))
@@ -935,6 +999,8 @@ class App(customtkinter.CTk):
         self.mixscansettings()
 
     def wallpaper_scan_toogle_on(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.wallpapertoogle = True
         self.wallpaper_button = customtkinter.CTkButton(self.modify_frame, text=" Wallpaper scan  ALLOWED", command=self.wallpaper_scan_toogle_off, width=20, fg_color="#984cfc", hover_color="#984cfc", 
                                                 font=customtkinter.CTkFont(size=12))
@@ -942,6 +1008,8 @@ class App(customtkinter.CTk):
         self.mixscansettings()
 
     def installations_scan_toogle_off(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.installationstoogle = False
         self.installations_button = customtkinter.CTkButton(self.modify_frame, text="  Installations scan  DENIED  ", command=self.installations_scan_toogle_on, width=20, fg_color="#eb3434", hover_color="#eb3434", 
                                             font=customtkinter.CTkFont(size=12))
@@ -949,6 +1017,8 @@ class App(customtkinter.CTk):
         self.mixscansettings() 
 
     def resetscanconfig(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         
         with open(r'scansettings.sv', 'w') as f:
             f.write("scan.wallpaper.wallon\nscan.installs.installson\nscan.startup.starton\nscan.runtime.runon")
@@ -972,6 +1042,8 @@ class App(customtkinter.CTk):
         
 
     def installations_scan_toogle_on(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.installationstoogle = True
         self.installations_button = customtkinter.CTkButton(self.modify_frame, text="Installations scan  ALLOWED", command=self.installations_scan_toogle_off, width=20, fg_color="#984cfc", hover_color="#984cfc", 
                                                 font=customtkinter.CTkFont(size=12))
@@ -979,6 +1051,8 @@ class App(customtkinter.CTk):
         self.mixscansettings()
 
     def startup_scan_toogle_off(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.startuptoogle = False
         self.startup_button = customtkinter.CTkButton(self.modify_frame, text="     Startup scan      DENIED   ", command=self.startup_scan_toogle_on, width=20, fg_color="#eb3434", hover_color="#eb3434", 
                                             font=customtkinter.CTkFont(size=12))
@@ -986,6 +1060,8 @@ class App(customtkinter.CTk):
         self.mixscansettings()
 
     def startup_scan_toogle_on(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.startuptoogle = True
         self.startup_button = customtkinter.CTkButton(self.modify_frame, text="   Startup scan      ALLOWED ", command=self.startup_scan_toogle_off, width=20, fg_color="#984cfc", hover_color="#984cfc", 
                                                 font=customtkinter.CTkFont(size=12))
@@ -993,6 +1069,8 @@ class App(customtkinter.CTk):
         self.mixscansettings()
 
     def runtime_scan_toogle_off(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.runtimetoogle = False
         self.startup_button = customtkinter.CTkButton(self.modify_frame, text="   Runtime scan      DENIED   ", command=self.runtime_scan_toogle_on, width=20, fg_color="#eb3434", hover_color="#eb3434", 
                                             font=customtkinter.CTkFont(size=12))
@@ -1000,6 +1078,8 @@ class App(customtkinter.CTk):
         self.mixscansettings()
 
     def runtime_scan_toogle_on(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.runtimetoogle = True
         self.runtime_button = customtkinter.CTkButton(self.modify_frame, text=" Runtime scan      ALLOWED ", command=self.runtime_scan_toogle_off, width=20, fg_color="#984cfc", hover_color="#984cfc", 
                                                 font=customtkinter.CTkFont(size=12))
@@ -1007,6 +1087,8 @@ class App(customtkinter.CTk):
         self.mixscansettings()
 
     def add_illegal_process(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         defineApplicationKeysLoaded()
 
@@ -1031,6 +1113,8 @@ class App(customtkinter.CTk):
             print(f'{EMPTUM_CONSOLE_PREFIX}The name of the process was incorrect! ')
     
     def add_illegal_installations(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         ILLEGAL_INSTALLATION_NAME = self.illegal_installation.get()
         if ILLEGAL_INSTALLATION_NAME == ' ' or ILLEGAL_INSTALLATION_NAME == '':
@@ -1042,6 +1126,8 @@ class App(customtkinter.CTk):
             toastNotification('SENTRY - Better School Cyber Security', 'New Blacklisted installation added!', f"You successfuly added a new Blacklisted installation! ({ILLEGAL_INSTALLATION_NAME})", r"\images/system_scan_fine.ico", 'False', '', '')
 
     def remove_illegal_process(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         ILLEGAL_PROCESS_NAME = self.illegal_process.get()
         orig_lines = [line.strip() for line in open(r'unloaded_processes.hs')]
         new_lines = [l for l in orig_lines if not l.__contains__(ILLEGAL_PROCESS_NAME)]
@@ -1049,6 +1135,8 @@ class App(customtkinter.CTk):
             print(*new_lines, sep='\n', file=fp)
     
     def remove_blocked_installation(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         BLOCKED_INSTALLATION = self.illegal_installation.get()
         orig_lines = [line.strip() for line in open(r'installations.hs')]
         new_lines = [l for l in orig_lines if not l.__contains__(BLOCKED_INSTALLATION)]
@@ -1056,6 +1144,8 @@ class App(customtkinter.CTk):
             print(*new_lines, sep='\n', file=fp)
     
     def remove_blocked_site(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         BLOCKED_SITE = self.forbidden_webpage.get()
         orig_lines = [line.strip() for line in open(r'addresses.sv')]
         new_lines = [l for l in orig_lines if not l.__contains__(BLOCKED_SITE)]
@@ -1064,6 +1154,8 @@ class App(customtkinter.CTk):
         self.block_webaddress()
         
     def add_forbidden_website(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         FORRBIDEN_WEBPAGE = self.forbidden_webpage.get()
         if '.' in FORRBIDEN_WEBPAGE and FORRBIDEN_WEBPAGE != '' and FORRBIDEN_WEBPAGE != ' ':
@@ -1076,6 +1168,8 @@ class App(customtkinter.CTk):
             print(f"{EMPTUM_CONSOLE_PREFIX}The Webpage's name is incorrect! ")
     
     def clearwebcache(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         print(f'{EMPTUM_CONSOLE_PREFIX}Clearing the cache of Blacklisted websites!')
         os.system(r'host_settings_clearcache.bat')
@@ -1098,6 +1192,8 @@ class App(customtkinter.CTk):
             f.write(mixed)
 
     def injectInstallations(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.INSTALLATIONS_INJECTS = []
         hs = open('installations.hs', encoding='utf-8')
         try:
@@ -1112,6 +1208,8 @@ class App(customtkinter.CTk):
             self.injectInstallations()
 
     def injectApplications(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.APPLICATION_INJECTS = []
         hs = open('unloaded_processes.hs', encoding='utf-8')
         try:
@@ -1126,6 +1224,8 @@ class App(customtkinter.CTk):
             self.injectApplications()
         
     def installationscheck(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.isTokenLatest()
         installation_found = False
         
@@ -1147,6 +1247,8 @@ class App(customtkinter.CTk):
             installation_found = False
 
     def EXPERTSCANLOAD(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         self.expertscan_frame.grid_forget()
         self.scanning_frame.grid(row=0, column=0, sticky="nsew", padx=100)
         self.scantext = customtkinter.CTkLabel(self.scanning_frame, text=f"Scanning installations, desktop, downloads, \nstartup, and runtime as {self.USERNAME_INPUT} \nat {current_date} {current_time}. \nClick on the button to start!",
@@ -1155,6 +1257,8 @@ class App(customtkinter.CTk):
     
     
     def EXPERTSCAN(self):
+        sound_thread = clickSoundThread()
+        sound_thread.start()
         RUNTIME_PROCESSES = []
         noBlacklistedActivity = True 
         global MACHINE_ID
@@ -1194,17 +1298,36 @@ class App(customtkinter.CTk):
         )
         
         if installation_found:
-            print(f'{EMPTUM_CONSOLE_PREFIX}Blacklisted installations found!')
+            with open(r'reports.txt', 'a') as f:
+                f.write(f'Application;{current_date}{current_time};Blacklisted installation\n')
+        
             noBlacklistedActivity = False
             toastNotification('SENTRY - Better School Cyber Security', f"Blacklisted installation! - {current_date}", 'SENTRY detected Blacklisted installation in your system! Action reported, and logged!', r"\images/system_alert.ico", 'False', '', '')
-
+            reportToSQLDatabase(f'[!][INSTALLATION]', f'{current_date} {current_time}', MACHINE_ID, 'Blacklisted installation found!')
         if noBlacklistedActivity:
             toastNotification('SENTRY - Better School Cyber Security', f"No Blacklisted activity! - {current_date}", 'There is no Blacklisted activity in your system!', r"\images/system_scan_fine.ico", 'False', '', '')
             with open('activity_log.hs', 'a', encoding='utf-8') as hs:
                 hs.write(f'[Activity]> No forbidden application found at {raw_datetime()}!\n')
                 hs.close()
+        
+        path = f'C://Users//{os.getenv("USERNAME")}//AppData//Roaming//Microsoft//Windows//Start Menu//Programs//Startup//'
+        ss_list = os.listdir(path)
+        illegalFileInStartup = False
+
+        print(f'{EMPTUM_CONSOLE_PREFIX}Found files in startup folder: {Fore.MAGENTA}{ss_list}')
+        for file in ss_list:
+            if 'desktop.ini' in file: pass
+            else:
+                print(f'{EMPTUM_CONSOLE_PREFIX}{Fore.YELLOW}{file} found, deleted!') 
+                illegalFileInStartup = True
+                os.remove(path + file)
+                with open(r'reports.txt', 'a') as f:
+                    f.write(f'{file};{current_date}{current_time};Blacklisted file in startup\n')
+                        
+        if illegalFileInStartup != True: print(f'{EMPTUM_CONSOLE_PREFIX}No illegal file(s) found in Startup folder!')
+
 
 if __name__ == "__main__":
-    time.sleep(10)
+    time.sleep(6)
     app = App()
     app.mainloop()

@@ -7,8 +7,8 @@ from PyQt5.QtCore import Qt, QTimer
 from playsound import playsound
 
 scriptDir = os.path.dirname(os.path.realpath(__file__))
-gifFile = (scriptDir + os.path.sep + 'images/startup_logo.gif')
-soundFile = (scriptDir + os.path.sep + '/sounds/startup.mp3')
+gifFile = (scriptDir + os.path.sep + 'images/startup_logo.png')
+soundFile = (scriptDir + os.path.sep + '/sounds/startup.wav')
 
 class SoundThread(threading.Thread):
     def run(self):
