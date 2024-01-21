@@ -1,17 +1,8 @@
-ctypes
-os
-threading
-time
 psutil
 winapps
-hashlib
-os.path
 datetime
-platform
-subprocess
 customtkinter
 mysql-connector-python
-sys
 pathlib
 Pillow
 winotify
