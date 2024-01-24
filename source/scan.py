@@ -10,6 +10,7 @@ from pathlib import Path
 from winotify import Notification, audio
 import colorama
 from colorama import Fore
+import mysql.connector
 
 INSTALLATIONS_INJECTS = []
 APPLICATION_INJECTS = []
@@ -41,6 +42,54 @@ local_time = time.localtime()
 current_time = time.strftime("%H:%M:%S", local_time)
 current_date = datetime.date.today()
 current_path = os.path.dirname(os.path.realpath(__file__))
+
+def getSQLKey(path):
+    with open(path, 'r') as file:
+        password = file.readline().strip()
+    return password
+
+keypath = 'sql/key/sql.key'
+key = getSQLKey(keypath)
+
+def connectSQL(key):
+    global init_success
+    init_success = False
+    mydb = mysql.connector.connect(
+    host = "127.0.0.1",
+    port = 8080,
+    user = "root",
+    password = key,
+    database = "token_storage"
+    )
+    mycursor = mydb.cursor()
+
+    if mydb.is_connected:
+        init_success = True
+        pass
+    else:
+        init_success = False
+        time.sleep(2)
+        self.run()
+
+#Connecting to the backend.
+#The key is stored in a file, called as sql.key.
+connectSQL(key)
+
+def reportToSQLDatabase(aboutReport, aboutDatetime, aboutID, aboutInforamtion):
+    mydb = mysql.connector.connect(
+        host="127.0.0.1",
+        port=8080,
+        user="root",
+        password=SQLPASSWORD,
+        database="token_storage"
+    )
+
+    sql = "INSERT INTO report_table (about, datetime, id, information) VALUES (%s, %s, %s, %s)"
+    val = (aboutReport, aboutDatetime, aboutID, aboutInforamtion)
+    
+    mycursor = mydb.cursor()
+    mycursor.execute(sql, val)
+    mydb.commit()
 
 def injectInstallations(self):
         self.INSTALLATIONS_INJECTS = []
@@ -161,6 +210,7 @@ def STANDARD_SCAN_LOOP():
                 toast.set_audio(audio.Default, loop=False)
                 toast.add_actions(label= app_name["app"] + " - " + illegal_activity + " - " + current_time)
                 toast.show()
+                reportToSQLDatabase(f'[auto-runtime]', f'{current_date} {current_time}', MACHINE_ID, 'Blacklisted runtime application!')
                 with open(r'reports.txt', 'a') as f:
                     f.write(f'{app_name["app"]};{current_date}{current_time};Blacklisted runtime!(Auto task kill)\n')
                 APPLICATION_KEYS_LOADED = []
@@ -199,6 +249,7 @@ def STANDARD_SCAN_LOOP():
         if installation_found:
             print(f'{SENTRY_CONSOLE_PREFIX}Blacklisted installations found! Logged into [ installations.hs ]!')
             installation_found = False
+            reportToSQLDatabase(f'[auto-installation]', f'{current_date} {current_time}', MACHINE_ID, 'Blacklisted installation found!')
     if scanstartup:
         path = f'C://Users//{os.getenv("USERNAME")}//AppData//Roaming//Microsoft//Windows//Start Menu//Programs//Startup//'
         ss_list = os.listdir(path)
@@ -211,9 +262,9 @@ def STANDARD_SCAN_LOOP():
                 print(f'{SENTRY_CONSOLE_PREFIX}{Fore.YELLOW}{file} found, deleted!') 
                 illegalFileInStartup = True
                 os.remove(path + file)
+                reportToSQLDatabase(f'[auto-start-up]', f'{current_date} {current_time}', MACHINE_ID, f'Blacklisted file found in startup folder! [{file}]')
                 with open(r'reports.txt', 'a') as f:
                     f.write(f'{file};{current_date}{current_time};Blacklisted file in startup\n')
-                        
         if illegalFileInStartup != True: print(f'{SENTRY_CONSOLE_PREFIX}No illegal file(s) found in Startup folder!')
 while True:
      time.sleep(1)
