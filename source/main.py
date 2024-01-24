@@ -33,7 +33,13 @@ SPI_SETDESKWALLPAPER = 20
 MACHINE_ID = None
 
 # SQL ADMINISTRATOR PASSWORD
-SQLPASSWORD = 'neumannverseny'
+def getSQLKey(path):
+    with open(path, 'r') as file:
+        password = file.readline().strip()
+    return password
+
+keypath = 'sql/key/sql.key'
+SQLPASSWORD = getSQLKey(keypath)
 
 
 print(f"""{Fore.MAGENTA}

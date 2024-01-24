@@ -25,7 +25,7 @@ def main():
     except:
         print(consolePrefix('err')+"Wrong root password, exiting...")
         time.sleep(2), exit()
-    print(consolePrefix('menu')+ Fore.WHITE + f"Welcome to the administrator terminal!\nHere are the commands to manage the database." + Fore.MAGENTA + f"\nRegister a new user => user register <name> <password>\nRemove a user => user delete <name>\nCheck all activity => get activity\n{Fore.RED}Exit from terminal => exit")
+    print(consolePrefix('menu')+ Fore.WHITE + f"\n\nWelcome to the administrator terminal!\nHere are the commands to manage the database." + Fore.MAGENTA + f"\n Register a new user => user register <name> <password>\n Remove a user => user delete <name>\n Check all activity => get activity\n Requests from Clients => get requests\n{Fore.RED} Exit from terminal => exit\n")
     
     def menuInput():
         mydb = mysql.connector.connect(
@@ -61,7 +61,18 @@ def main():
             elif menu == "get activity":
                 mycursor.execute("SELECT * FROM report_table")
                 result = mycursor.fetchall()
-                print(Fore.BLUE + 'Querying the database...')
+                print(Fore.BLUE + 'Querying the database...\n' + Fore.MAGENTA + 'REPORTS FROM CLIENTS:')
+                for row in result:
+                    row_items = ', '.join(row)
+                    print(Fore.YELLOW + row_items)
+
+                print(Fore.GREEN + 'Querying the database was successful!')
+                menuInput()
+            
+            elif menu == "get requests":
+                mycursor.execute("SELECT request_table, username_table FROM token_requests_table")
+                result = mycursor.fetchall()
+                print(Fore.BLUE + 'Querying the database...\n' + Fore.MAGENTA + 'TOKEN REQUESTS FROM CLIENTS:')
                 for row in result:
                     row_items = ', '.join(row)
                     print(Fore.YELLOW + row_items)

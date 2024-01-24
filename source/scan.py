@@ -69,7 +69,6 @@ def connectSQL(key):
     else:
         init_success = False
         time.sleep(2)
-        self.run()
 
 #Connecting to the backend.
 #The key is stored in a file, called as sql.key.

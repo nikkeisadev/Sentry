@@ -17,3 +17,4 @@ Spotify.exe;2024-01-2111:15:47;Blacklisted runtime!(Auto task kill)
 getrektwindows.iusearchbtw;2024-01-2111:15:47;Blacklisted file in startup
 mechwartisagoodplace.exe;2024-01-2111:15:47;Blacklisted file in startup
 uwu.bmp;2024-01-2111:15:47;Blacklisted file in startup
+Discord.exe;2024-01-2215:54:48;Blacklisted runtime!(Auto task kill)
