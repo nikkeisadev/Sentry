@@ -15,40 +15,46 @@ https://www.youtube.com/watch?v=pboiQy_5B8g
 - Block different websites.
 - Prevent installed apps from runing for a specified time. (Disable any app which can students help on exams)
 
+## Installation 👾
+> Run `setup.py` from main, which will download all the requirements for Sentry with pip, and also gonna download the official MySQL installer for the backend.
+
 ## Usage 📖
 If the client, and the enviorment is ready, then you just have to start the software. Then you have to register a user from the administrator terminal window, and then login with these credentials.
-After that you will face the menu of Sentry where you can select various options, such as blocking websites, blockin apps from running, etc. \
 
-> To install and setup the enviorment please check above!
+### Client initialization 💻
+BEFORE RUNNING THE CLIENT, PLEASE INSTALL THE BACKEND FIRST!
+1. To start the client open the files in Visual Studio code.
+2. Run `main.py` with the play button.
+3. You will see the debug status in the terminal, and it should start booting up.
+4. Login with your login credentials, but first register a new user from the terminal.
 
-# Installation and backend setup for clients. 💻
-
-> If you want to run Sentry, you have to setup the enviorment. First of all you have to get the client, then you have to setup the SQL database localy. (Server and client in MySQL)
-## Downloading ✅
-Clone sourcecode
-1. Clone the repository: `git clone https://github.com/nikkeisadev/Sentry.git`
-2. Install the required dependencies: `pip install -r requirements.txt` (You can find the requirements in main)
-3. Run the security system by `python sentry_main.py`
-
-Download release 
-1. Click to Download the release.
-2. Then you just need to unzip the program, you don't need to install any requirements. 🌐
+### Backend management 🎛
+> Start `terminal.py`, and login with the root password of the database, which should be *neumannverseny*, or the one what you selected while installing it. (MySQL)
+| Action           | Description                               |
+|------------------|-------------------------------------------|
+| User Register    | Register a new user in the system          |
+| User Delete      | Remove an existing user from the system    |
+| Get Activity     | Retrieve activity from the database        |
+| Get Requests     | Retrieve requests from clients             |
 
 ![mysqlvariant](https://github.com/nikkeisadev/Sentry/assets/137056695/3ffb7e97-01f7-4951-8b5c-f9b8e8d45d14)
 
-## SQL Database 🎛
-Open sql folder, and there you will find all the files which needed for the database. (Including already stored informations) 
-- Download MySQL here: https://dev.mysql.com/downloads/installer/
-- Install workbench, and server (Try to install with the same version number)
-- Make the user root (to have access for everything), and the password should be `neumannverseny` on `8080` open port.
-- After installation click on start Workbench.
-- Creat new test connection and insert host informations from sql_structure.txt. `from /sql/`
-- Then the server should run, and you have to import the sql files from the folder, and the backend is ready. ✅
-- IF THE IMPORT FAILED, THEN YOU CAN REBUILD THE SQL SCHEMAS FROM THE TXT!!!
-  
+### MySQL backend 🌐
+1. When you start installing Sentry's requirements with `setup.py`, the mysql installer should start.
+2. Select MySQL database, and workbench with the same version and proceed to install.
+3. After installation the setup of the backend's open port, and root password will start.
+4. Make the open port `8080`, and the password `neumannverseny`.
+5. Initalize Workbench, and create a new connection. You can name it as you want, I recommend SENTRY-Neumannverseny or something like that.
+6. The IP, is `127.0.0.0`, so `localhost`, and the port should be `8080` again.
+7. Then click on test connection, and write the root password, which was `neumannverseny`.
+8. Check the backend if it's running.
+9. If the backend can't run, please try again installing it, or restart the computer.
+
+Import the exported backend tables, which will be in the sql folder (in main).
+- The exported database will already contain demo informations for testing.
+
 ## Contributing ❗
 As this is a private project, there is no possibility for external contributions. However, if you have any suggestions or feedback, feel free to reach out to me.
-Sorry, I'm a lonely programmer, working by myself.
 
 ## Contact 📨
 For any inquiries or support, please contact me at [notnikkecrd@gmail.com](mailto:notnikkecrd@gmail.com).
