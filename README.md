@@ -33,6 +33,9 @@ Clone sourcecode
 Download release 
 1. Click to Download the release.
 2. Then you just need to unzip the program, you don't need to install any requirements. 🌐
+
+![mysql](https://github.com/nikkeisadev/Sentry/assets/137056695/6aa28e48-6e69-48ef-9250-7c0cb3a80372)
+
 ## SQL Database 🎛
 Open sql folder, and there you will find all the files which needed for the database. (Including already stored informations) 
 - Download MySQL here: https://dev.mysql.com/downloads/installer/
