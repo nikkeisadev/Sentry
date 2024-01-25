@@ -11,9 +11,8 @@ https://www.youtube.com/watch?v=pboiQy_5B8g
 - Prevent wallpaper changes.
 - Generate reports on security incidents and vulnerabilities.
 - Report to the database.
-- Scan files for viruses.
 - Block different websites.
-- Prevent installed apps from runing for a specified time. (Disable any app which can students help on exams)
+- Prevent installed apps from runing for a specified time. (Disable any application while, for example, exams.)
 
 ## Installation 👾
 > Run `setup.py` from main, which will download all the requirements for Sentry with pip, and also gonna download the official MySQL installer for the backend.
