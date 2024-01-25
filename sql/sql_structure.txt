@@ -1,6 +1,8 @@
 SENTRY SQL DATABASE STRUCTURE | 2024.01.18
 Made by nikkeisadev. -> Latest tree.
 
+THIS FILE IS MADE IF ANYTHIN HAPPENES WITH THE DATABASE, LIKE YOU ARE UNABLE TO IMPORT THE EXPORTED INFORMATIONS. HERE YOU CAN REBUILD THE STRUCTURE OF THE WHOLE DATABASE!
+
 Sentry Database (SQL) I. Bela Gimnazium
  | 
  host = "127.0.0.1" port = "8080" user = "root" password = "neumannverseny" database = "token_storage"
