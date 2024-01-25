@@ -29,7 +29,8 @@ BEFORE RUNNING THE CLIENT, PLEASE INSTALL THE BACKEND FIRST!
 4. Login with your login credentials, but first register a new user from the terminal.
 
 ### Backend management 🎛
-> Start `terminal.py`, and login with the root password of the database, which should be *neumannverseny*, or the one what you selected while installing it. (MySQL)
+Start `terminal.py`, and login with the root password of the database, which should be *neumannverseny*, or the one what you selected while installing it. (MySQL)
+
 | Action           | Description                               |
 |------------------|-------------------------------------------|
 | User Register    | Register a new user in the system          |
