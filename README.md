@@ -14,18 +14,8 @@ https://www.youtube.com/watch?v=pboiQy_5B8g
 - Block different websites.
 - Prevent installed apps from runing for a specified time. (Disable any application while, for example, exams.)
 
-## Installation 👾
-> Run `setup.py` from main, which will download all the requirements for Sentry with pip, and also gonna download the official MySQL installer for the backend.
-
 ## Usage 📖
 If the client, and the enviorment is ready, then you just have to start the software. Then you have to register a user from the administrator terminal window, and then login with these credentials.
-
-### Client initialization 💻
-BEFORE RUNNING THE CLIENT, PLEASE INSTALL THE BACKEND FIRST!
-1. To start the client open the files in Visual Studio code.
-2. Run `main.py` with the play button.
-3. You will see the debug status in the terminal, and it should start booting up.
-4. Login with your login credentials, but first register a new user from the terminal.
 
 ### Backend management 🎛
 Start `terminal.py`, and login with the root password of the database, which should be *neumannverseny*, or the one what you selected while installing it. (MySQL)
@@ -37,7 +27,9 @@ Start `terminal.py`, and login with the root password of the database, which sho
 | Get Activity     | Retrieve activity from the database        |
 | Get Requests     | Retrieve requests from clients             |
 
-![mysqlvariant](https://github.com/nikkeisadev/Sentry/assets/137056695/3ffb7e97-01f7-4951-8b5c-f9b8e8d45d14)
+
+## Installation 👾
+Run `setup.py` from main, which will download all the requirements for Sentry with pip, and also gonna download the official MySQL installer for the backend.
 
 ### MySQL backend 🌐
 1. When you start installing Sentry's requirements with `setup.py`, the mysql installer should start.
@@ -52,6 +44,13 @@ Start `terminal.py`, and login with the root password of the database, which sho
 
 Import the exported backend tables, which will be in the sql folder (in main).
 - The exported database will already contain demo informations for testing.
+
+### Client initialization 💻
+BEFORE RUNNING THE CLIENT, PLEASE INSTALL THE BACKEND FIRST!
+1. To start the client open the files in Visual Studio code.
+2. Run `main.py` with the play button.
+3. You will see the debug status in the terminal, and it should start booting up.
+4. Login with your login credentials, but first register a new user from the terminal.
 
 ## Contributing ❗
 As this is a private project, there is no possibility for external contributions. However, if you have any suggestions or feedback, feel free to reach out to me.
