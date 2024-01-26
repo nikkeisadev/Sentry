@@ -19,7 +19,7 @@ required_packages = [
 ]
 
 # Install required packages
-print('Installing required packages.')
+print('Installing required packages.\nIF THE INSTALLER STOPPED, PLEASE PRESS ENTER TO CONTINUE TO OTHER PACKAGES!!!')
 for index, package in enumerate(required_packages):
     print(f'Package {index+1}/{len(required_packages)}: {package}')
     try:
@@ -27,8 +27,7 @@ for index, package in enumerate(required_packages):
     except subprocess.CalledProcessError as e:
         print(f'Error installing package: {package}. Skipping...')
         continue
-
-# Download MySQL installer
+    # Download MySQL installer
 print('Downloading MySQL installer.')
 mysql_installer_url = 'https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-web-community-8.0.28.0.msi'
 mysql_installer_filename = 'mysql-installer.msi'

@@ -13,3 +13,7 @@
 [Activity]> Forbidden application in the system: Spotify.exe at 2024-01-21 11:15:47.782584!
 [Activity]> Forbidden application in the system: Discord.exe at 2024-01-22 15:54:48.729486!
 [Activity]> Forbidden application in the system: Discord.exe at 2024-01-24 22:53:15.131887!
+[Activity]> Forbidden application in the system: Lively.exe at 2024-01-26 21:55:26.026385!
+[Activity]> Forbidden application in the system: Discord.exe at 2024-01-26 22:00:20.132028!
+[Activity]> Forbidden application in the system: Lively.exe at 2024-01-26 22:01:21.133125!
+[Activity]> Forbidden application in the system: Discord.exe at 2024-01-26 22:01:21.133125!

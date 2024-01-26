@@ -26,6 +26,7 @@ installation_found = False
 global switchPerm
 switchPerm = True
 
+MACHINE_ID = None
 CWD_PATH = os.getcwd()
 USER_NAME = Path.home()
 USERNAME_RUNTIME = platform.uname()
@@ -50,6 +51,12 @@ def getSQLKey(path):
 
 keypath = 'sql/key/sql.key'
 key = getSQLKey(keypath)
+
+def readID():
+    global MACHINE_ID
+    with open(r'machineid.sv', 'r') as idSharedValue:
+        MACHINE_ID = idSharedValue.read().rstrip()
+readID()
 
 def connectSQL(key):
     global init_success
@@ -79,7 +86,7 @@ def reportToSQLDatabase(aboutReport, aboutDatetime, aboutID, aboutInforamtion):
         host="127.0.0.1",
         port=8080,
         user="root",
-        password=SQLPASSWORD,
+        password=key,
         database="token_storage"
     )
 
