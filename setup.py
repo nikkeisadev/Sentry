@@ -15,7 +15,7 @@ required_packages = [
     'pathlib',
     'Pillow',
     'winotify',
-    'colorama'
+    'colorama',
     'playsound'
 ]
 
