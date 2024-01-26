@@ -27,7 +27,8 @@ for index, package in enumerate(required_packages):
     except subprocess.CalledProcessError as e:
         print(f'Error installing package: {package}. Skipping...')
         continue
-    # Download MySQL installer
+
+# Download MySQL installer
 print('Downloading MySQL installer.')
 mysql_installer_url = 'https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-web-community-8.0.28.0.msi'
 mysql_installer_filename = 'mysql-installer.msi'
@@ -40,5 +41,5 @@ if platform.system() == 'Windows':
     os.startfile(mysql_installer_filename)
 else:
     print("MySQL installer can only be opened on a Windows machine.\nExiting...")
-    time.sleep(1)
+    time.sleep(2)
     exit()
