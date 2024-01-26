@@ -16,6 +16,7 @@ required_packages = [
     'Pillow',
     'winotify',
     'colorama'
+    'playsound'
 ]
 
 # Install required packages
