@@ -20,3 +20,6 @@ uwu.bmp;2024-01-2111:15:47;Blacklisted file in startup
 Discord.exe;2024-01-2215:54:48;Blacklisted runtime!(Auto task kill)
 Lively.exe;2024-01-2622:01:21;Blacklisted runtime!(Auto task kill)
 Discord.exe;2024-01-2622:01:21;Blacklisted runtime!(Auto task kill)
+Lively.exe;2024-01-2806:48:49;Blacklisted runtime!(Auto task kill)
+Discord.exe;2024-01-2806:48:49;Blacklisted runtime!(Auto task kill)
+Spotify.exe;2024-01-2806:48:49;Blacklisted runtime!(Auto task kill)
