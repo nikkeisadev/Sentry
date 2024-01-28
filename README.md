@@ -15,6 +15,7 @@ https://www.youtube.com/watch?v=pboiQy_5B8g
 - Prevent installed apps from runing for a specified time. (Disable any application while, for example, exams.)
 
 ## Usage 📖
+### Always run the program from VS Code terminal, and open the `/source` directory, otherwise the software will break. 📘
 If the client, and the enviorment is ready, then you just have to start the software. Then you have to register a user from the administrator terminal window, and then login with these credentials.
 
 ### Backend management 🎛
