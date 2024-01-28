@@ -37,11 +37,12 @@ Run `setup.py` from main, which will download all the requirements for Sentry wi
 3. In the installer, select MySQL Workbench from Applications, and MySQL server.
 4. After installation the setup of the backend's open port, and root password will start.
 5. Make the open port `8080`, and the password `neumannverseny`.
-6. Initalize Workbench, and create a new connection. You can name it as you want, I recommend SENTRY-Neumannverseny or something like that.
-7. The IP, is `127.0.0.0`, so `localhost`, and the port should be `8080` again.
-8. Then click on test connection, and write the root password, which was `neumannverseny`.
-9. Check the backend if it's running.
-10. If the backend can't run, please try again installing it, or restart the computer.
+  IF THE PASSWORD IS SOMETHING ELSE, THEN CHANGE THE PASSWORD IN `sql/key/sql.key` TOO!
+7. Initalize Workbench, and create a new connection. You can name it as you want, I recommend SENTRY-Neumannverseny or something like that.
+8. The IP, is `127.0.0.0`, so `localhost`, and the port should be `8080` again.
+9. Then click on test connection, and write the root password, which was `neumannverseny`.
+10. Check the backend if it's running.
+11. If the backend can't run, please try again installing it, or restart the computer.
 
 Import the exported backend tables, which will be in the sql folder (in main).
 - The exported database will already contain demo informations for testing.
