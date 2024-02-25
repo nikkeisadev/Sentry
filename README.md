@@ -56,9 +56,7 @@ You have to make the SQL table by this chart:
 
 ![image](https://github.com/nikkeisadev/Sentry/assets/137056695/50dc178b-1580-4622-a722-8b5a727c3bd7)
 
-
-![image](https://github.com/nikkeisadev/Sentry/assets/137056695/73db7643-fcc6-4e49-bbd5-e9fe03bacba4)
-
+![image](https://github.com/nikkeisadev/Sentry/assets/137056695/07153314-4ede-4c49-8d01-c9c477adbcda)
 
 ### Client initialization 💻
 BEFORE RUNNING THE CLIENT, PLEASE INSTALL THE BACKEND FIRST!
