@@ -32,6 +32,8 @@ Start `terminal.py`, and login with the root password of the database, which sho
 ## Installation 👾
 Run `setup.py` from main, which will download all the requirements for Sentry with pip, and also gonna download the official MySQL installer for the backend.
 
+![image](https://github.com/nikkeisadev/Sentry/assets/137056695/ecbe0b8e-d147-4ef0-8392-689e793a2584)
+
 ### MySQL backend 🌐
 1. When you start installing Sentry's requirements with `setup.py`, the mysql installer should start.
 2. Click on Custom, we need only the graphical interface and the server.
