@@ -51,40 +51,8 @@ Import the exported backend tables, which will be in the sql folder (in main). <
 - The exported database will already contain demo informations for testing.
 You have to make the SQL table by this chart:
 
-Sentry Database (SQL) I. Bela Gimnazium
- | 
- host = "127.0.0.1" port = "8080" user = "root" password = "neumannverseny" database = "token_storage"
- |
- token_storage: Database
-    |
-    report_table: Table
-     |
-     about[str]
-     |
-     datetime[str]
-     |
-     id[str]
-     |
-     information[str]
-    |
-    machine_id: Table
-     |
-     id_table[int]
-    |
-    user_token: Table
-     |
-     user_name[str]
-     |
-     user_token[str]
-    |
-    token_requests_table: Table
-     |
-     request_table[str]
-     |
-     username_table[str]
-     |
-     hash_value[str]
-    |
+![image](https://github.com/nikkeisadev/Sentry/assets/137056695/50dc178b-1580-4622-a722-8b5a727c3bd7)
+
 ### Client initialization 💻
 BEFORE RUNNING THE CLIENT, PLEASE INSTALL THE BACKEND FIRST!
 1. To start the client open the files in Visual Studio code.
